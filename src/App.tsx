@@ -1,5 +1,14 @@
+import Register from "./pages/Register/Register";
+
+import { ResetCSS } from "./Index.style";
+
 const App = () => {
-  return null;
+  return (
+    <>
+      <ResetCSS />
+      <Register />
+    </>
+  );
 };
 
 export default App;
