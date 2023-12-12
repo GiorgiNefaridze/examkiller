@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { UseFormRegisterReturn } from "react-hook-form";
+import { type UseFormRegisterReturn } from "react-hook-form";
 
 import { LabelContainer } from "./InputLabel.style";
 
@@ -16,7 +16,6 @@ const InputLabel: InputLabelType = ({ label, type, register }) => {
 
   return (
     <LabelContainer>
-      <h3>{label}</h3>
       <input type={type} {...register} placeholder={inputPlaceholder} />
     </LabelContainer>
   );

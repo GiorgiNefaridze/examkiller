@@ -17,13 +17,24 @@ export const Form = styled.div`
   align-items: center;
   flex-direction: column;
   row-gap: 25px;
+`;
+
+export const FormGroup = styled.div`
+  width: 50%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  row-gap: 15px;
 
   h1 {
     font-family: sans-serif;
     font-weight: bold;
   }
+
   form {
-    width: 60%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -44,9 +55,9 @@ export const SideBar = styled.div`
 `;
 
 export const Button = styled.button`
-  width: 95%;
+  width: 100%;
   text-align: center;
-  border-radius: 10px;
+  border-radius: 8px;
   padding: 10px;
   color: white;
   background-color: #3081d0;
@@ -66,4 +77,25 @@ export const HaveAccount = styled.p`
   color: #3081d0;
   font-weight: 400;
   cursor: pointer;
+`;
+
+export const RoleWrapper = styled.div`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  row-gap: 30px;
+  margin-block: 10px;
+
+  h1 {
+    font-weight: 700;
+  }
+`;
+
+export const RoleContent = styled.div`
+  width: 100%;
+  display: flex;
+  column-gap: 10px;
+  justify-content: space-between;
 `;

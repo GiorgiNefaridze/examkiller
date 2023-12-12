@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const LabelContainer = styled.label`
-  width: 95%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   row-gap: 15px;
