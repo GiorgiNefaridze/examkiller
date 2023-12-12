@@ -47,14 +47,15 @@ const Register = () => {
   });
 
   const SubmitClick = () => {
-    if (index < 1) {
+    const { Role, ...rest } = watch();
+
+    if (index < 1 && validateText(rest)) {
       setIndex((idx) => idx + 1);
       setComplete((prev) => prev + 1);
     }
 
-    const arrayOfFields: string[] = Object.values(watch());
-    if (validateText(arrayOfFields)) {
-      console.log(watch());
+    if (validateText(watch())) {
+      //API call
     }
   };
 
