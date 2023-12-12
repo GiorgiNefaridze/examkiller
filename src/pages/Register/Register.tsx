@@ -7,6 +7,7 @@ import Stepper from "../../components/Stepper";
 import Role from "../../components/Role/Role";
 import { Routes } from "../../../Routes";
 import { roles } from "../../../constants";
+import { validateText } from "../../helpers/validateText";
 
 import Laptop from "../../assets/laptop.png";
 import {
@@ -51,7 +52,10 @@ const Register = () => {
       setComplete((prev) => prev + 1);
     }
 
-    console.log(watch());
+    const arrayOfFields: string[] = Object.values(watch());
+    if (validateText(arrayOfFields)) {
+      console.log(watch());
+    }
   };
 
   return (
@@ -84,8 +88,9 @@ const Register = () => {
             <RoleWrapper>
               <h1>Which are you</h1>
               <RoleContent>
-                {roles.map((_) => (
+                {roles.map((_, idx) => (
                   <Role
+                    key={idx}
                     role={role}
                     setRole={setRole}
                     setValue={setValue}
