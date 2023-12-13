@@ -11,4 +11,11 @@ const roles: RoleType[] = [
   { name: "Lead", img: Lead },
 ] as const;
 
-export { roles };
+const emailPattern = {
+  pattern: new RegExp(
+    /[a-z0-9\._%+!$&*=^|~#%'`?{}/\-]+@([a-z0-9\-]+\.){1,}([a-z]{2,16})/
+  ),
+  message: "invalid email address",
+};
+
+export { roles, emailPattern };

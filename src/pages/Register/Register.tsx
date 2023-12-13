@@ -6,7 +6,7 @@ import InputLabel from "../../components/InputLabel/InputLabel";
 import Stepper from "../../components/Stepper";
 import Role from "../../components/Role/Role";
 import { Routes } from "../../../Routes";
-import { roles } from "../../../constants";
+import { roles, emailPattern } from "../../../constants";
 import { validateText } from "../../helpers/validateText";
 
 import Laptop from "../../assets/laptop.png";
@@ -36,28 +36,39 @@ const Register = () => {
   const [complete, setComplete] = useState<number>(0);
   const [role, setRole] = useState<string>(roles[0].name); //Default role == Student
 
-  const { register, watch, setValue } = useForm<FormType>({
+  const {
+    register,
+    setValue,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<FormType>({
     defaultValues: { Role: role },
   });
 
   const navigate = useNavigate();
 
   const getFormFields = (field: Field) => ({
-    ...register(field),
+    ...register(field, {
+      pattern: field === "Email" && {
+        value: emailPattern.pattern,
+        message: emailPattern.message,
+      },
+      required: { value: true, message: "Please fill the following field" },
+    }),
   });
 
-  const SubmitClick = () => {
-    const { Role, ...rest } = watch();
+  const SubmitClick = handleSubmit((data) => {
+    const { Role, ...rest } = data;
 
     if (index < 1 && validateText(rest)) {
       setIndex((idx) => idx + 1);
       setComplete((prev) => prev + 1);
     }
 
-    if (validateText(watch())) {
+    if (validateText(data)) {
       //API call
     }
-  };
+  });
 
   return (
     <Wrapper>
@@ -72,16 +83,19 @@ const Register = () => {
                   label="Nickname"
                   type="text"
                   register={{ ...getFormFields("Nickname") }}
+                  errors={errors}
                 />
                 <InputLabel
                   label="Email"
                   type="email"
                   register={{ ...getFormFields("Email") }}
+                  errors={errors}
                 />
                 <InputLabel
                   label="Password"
                   type="password"
                   register={{ ...getFormFields("Password") }}
+                  errors={errors}
                 />
               </form>
             </>
