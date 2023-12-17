@@ -1,13 +1,16 @@
-import { memo, useState } from "react";
+import { memo, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { Toaster } from "sonner";
 
 import InputLabel from "../../components/InputLabel/InputLabel";
 import Stepper from "../../components/Stepper";
 import Role from "../../components/Role/Role";
 import { Routes } from "../../../Routes";
-import { roles, emailPattern } from "../../../constants";
+import { roles, emailPattern, type RoleOptionType } from "../../../constants";
 import { validateText } from "../../helpers/validateText";
+import { Toast } from "../../helpers/Toast";
+import { useRegister } from "../../hooks/useRegister";
 
 import Laptop from "../../assets/laptop.png";
 import {
@@ -26,7 +29,7 @@ export type FormType = {
   Nickname: string;
   Email: string;
   Password: string;
-  Role: string;
+  Role: RoleOptionType;
 };
 
 const BUTTON_STEPS = ["Next", "Sumbit"];
@@ -34,7 +37,15 @@ const BUTTON_STEPS = ["Next", "Sumbit"];
 const Register = () => {
   const [index, setIndex] = useState<number>(0);
   const [complete, setComplete] = useState<number>(0);
-  const [role, setRole] = useState<string>(roles[0].name); //Default role == Student
+  const [role, setRole] = useState<string>(roles[0].name); //Default role = Student
+
+  const { data, error, mutateAsync: SignIn } = useRegister();
+
+  useEffect(() => {
+    if (error?.message || data?.response) {
+      Toast(error?.message, data?.response);
+    }
+  }, [error?.message, data?.response]);
 
   const {
     register,
@@ -47,6 +58,14 @@ const Register = () => {
 
   const navigate = useNavigate();
 
+  const reset = () => {
+    setIndex(0);
+    setComplete(0);
+    setValue("Email", "");
+    setValue("Nickname", "");
+    setValue("Password", "");
+  };
+
   const getFormFields = (field: Field) => ({
     ...register(field, {
       pattern: field === "Email" && {
@@ -57,7 +76,7 @@ const Register = () => {
     }),
   });
 
-  const SubmitClick = handleSubmit((data) => {
+  const SubmitClick = handleSubmit(async (data) => {
     const { Role, ...rest } = data;
 
     if (index < 1 && validateText(rest)) {
@@ -65,8 +84,9 @@ const Register = () => {
       setComplete((prev) => prev + 1);
     }
 
-    if (validateText(data)) {
-      //API call
+    if (index >= 1 && validateText(data)) {
+      await SignIn(data);
+      reset();
     }
   });
 
@@ -126,6 +146,7 @@ const Register = () => {
       <SideBar>
         <img src={Laptop} />
       </SideBar>
+      <Toaster closeButton richColors />
     </Wrapper>
   );
 };

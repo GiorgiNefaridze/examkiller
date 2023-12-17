@@ -1,8 +1,10 @@
 import Lead from "./src/assets/Professor-pana.png";
 import Student from "./src/assets/Student stress-rafiki.png";
 
-export type RoleType = {
-  name: string;
+type RoleOptionType = "Student" | "Lead";
+
+type RoleType = {
+  name: RoleOptionType;
   img: ReturnType<typeof Lead>;
 };
 
@@ -18,4 +20,4 @@ const emailPattern = {
   message: "invalid email address",
 };
 
-export { roles, emailPattern };
+export { roles, emailPattern, type RoleOptionType, type RoleType };
