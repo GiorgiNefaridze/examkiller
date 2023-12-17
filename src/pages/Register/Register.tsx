@@ -25,12 +25,7 @@ import {
 } from "./Register.style";
 
 type Field = "Nickname" | "Email" | "Password" | "Role";
-export type FormType = {
-  Nickname: string;
-  Email: string;
-  Password: string;
-  Role: RoleOptionType;
-};
+export type FormType = Record<Field, string>;
 
 const BUTTON_STEPS = ["Next", "Sumbit"];
 
@@ -39,7 +34,7 @@ const Register = () => {
   const [complete, setComplete] = useState<number>(0);
   const [role, setRole] = useState<string>(roles[0].name); //Default role = Student
 
-  const { data, error, mutateAsync: SignIn } = useRegister();
+  const { data, error, mutateAsync: SignUp } = useRegister();
 
   useEffect(() => {
     if (error?.message || data?.response) {
@@ -85,7 +80,7 @@ const Register = () => {
     }
 
     if (index >= 1 && validateText(data)) {
-      await SignIn(data);
+      await SignUp(data);
       reset();
     }
   });

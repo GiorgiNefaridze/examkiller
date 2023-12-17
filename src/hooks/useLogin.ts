@@ -1,26 +1,26 @@
 import { useMutation } from "@tanstack/react-query";
 
 import networkClient from "../../network";
-import { type FormType } from "../pages/Register/Register";
-
-export type ResponseType = { errorMessage: string } | { response: string };
+import { setCookie } from "../helpers/cookie";
+import { type ResponseType } from "./useRegister";
+import { type LoginType } from "../pages/Login/Login";
 
 const DTOMapper = (request) => {
   return {
-    Nickname: request.Nickname,
     Email: request.Email,
     Password: request.Password,
-    Role: request.Role,
   };
 };
 
-const useRegister = () => {
-  const register = async (userModel: FormType) => {
+const useLogin = () => {
+  const login = async (userModel: LoginType) => {
     try {
       const { data } = await networkClient.post<ResponseType>(
-        "/User/Create",
+        "/User/Get",
         DTOMapper(userModel)
       );
+
+      setCookie("user", data.response);
 
       return data;
     } catch (error) {
@@ -29,9 +29,9 @@ const useRegister = () => {
   };
 
   return useMutation({
-    mutationKey: ["register"],
-    mutationFn: register,
+    mutationKey: ["login"],
+    mutationFn: login,
   });
 };
 
-export { useRegister };
+export { useLogin };
