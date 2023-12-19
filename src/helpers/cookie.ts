@@ -11,16 +11,17 @@ const deleteCookie = (name: string) => {
 };
 
 const getCookie = (name: string) => {
+  if (!document.cookie.length) return;
   const cookie = document.cookie
-    .split("=")
-    .map((item, idx, arr) => {
+    ?.split("=")
+    ?.map((item, idx, arr) => {
       if (arr[idx - 1] === name) {
         return item;
       }
     })
-    .filter((el) => el)[0];
+    ?.filter((el) => el)[0];
 
-  return JSON.parse(cookie);
+  return JSON.parse(cookie ?? "");
 };
 
 export { setCookie, deleteCookie, getCookie };
