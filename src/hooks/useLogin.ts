@@ -1,9 +1,11 @@
 import { useMutation } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 
 import networkClient from "../../network";
 import { setCookie } from "../helpers/cookie";
 import { type ResponseType } from "./useRegister";
 import { type LoginType } from "../pages/Login/Login";
+import { Routes } from "../../Routes";
 
 const DTOMapper = (request) => {
   return {
@@ -13,6 +15,7 @@ const DTOMapper = (request) => {
 };
 
 const useLogin = () => {
+  const navigate = useNavigate();
   const login = async (userModel: LoginType) => {
     try {
       const { data } = await networkClient.post<ResponseType>(
@@ -22,6 +25,7 @@ const useLogin = () => {
 
       setCookie("user", data.response);
 
+      navigate(Routes.Dashboard.path);
       return data;
     } catch (error) {
       throw new Error(error.response?.data.errorMessage);
