@@ -3,9 +3,18 @@ import { useNavigate } from "react-router-dom";
 
 import networkClient from "../../network";
 import { setCookie } from "../helpers/cookie";
-import { type ResponseType } from "./useRegister";
 import { type LoginType } from "../pages/Login/Login";
 import { Routes } from "../../Routes";
+
+export type UserType = {
+  userId: number;
+  email: string;
+  nickname: string;
+  password: string;
+  role: "Lead" | "Student";
+};
+
+type ResponseType = { response: UserType };
 
 const DTOMapper = (request) => {
   return {

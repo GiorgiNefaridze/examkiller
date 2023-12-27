@@ -1,4 +1,5 @@
 import { memo } from "react";
+import { Toaster } from "sonner";
 
 import Navbar from "../../components/Navbar/Navbar";
 
@@ -9,11 +10,11 @@ import {
   NoContent,
 } from "./Dashboard.style";
 
-export const NoContentCMP = () => {
+export const NoContentCMP = ({ label }: { label: string }) => {
   return (
     <NoContent>
       <img src={NoContentLoadedImage} />
-      <h1>There is no room</h1>
+      <h1>There is no {label}</h1>
     </NoContent>
   );
 };
@@ -23,8 +24,9 @@ const Dashboard = () => {
     <DashboardWrapper>
       <Navbar />
       <DashboarContent>
-        <NoContentCMP />
+        <NoContentCMP label="room" />
       </DashboarContent>
+      <Toaster closeButton richColors />
     </DashboardWrapper>
   );
 };

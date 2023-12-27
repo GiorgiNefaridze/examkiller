@@ -22,6 +22,11 @@ import {
   Textarea,
   useDisclosure,
 } from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+
+import { useCreateRoom } from "../hooks/useCreateRoom";
+import { type RoomModelType } from "../hooks/useCreateRoom";
+import { getCookie } from "../helpers/cookie";
 
 type PropType = {
   setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
@@ -32,6 +37,12 @@ const typeOptions = ["Quiz", "Midterm"];
 const CreateRoomDrawer = ({ setIsDrawerOpen }: PropType) => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const firstField = useRef();
+  const user = getCookie("user");
+
+  const { register, handleSubmit } = useForm<RoomModelType>({
+    defaultValues: { ownerId: user?.userId },
+  });
+  const { data, error, mutateAsync } = useCreateRoom();
 
   useEffect(() => {
     onOpen();
@@ -41,6 +52,10 @@ const CreateRoomDrawer = ({ setIsDrawerOpen }: PropType) => {
     onClose();
     setIsDrawerOpen(false);
   };
+
+  const submitForm = handleSubmit(async (data) => {
+    await mutateAsync(data);
+  });
 
   return (
     <>
@@ -63,12 +78,13 @@ const CreateRoomDrawer = ({ setIsDrawerOpen }: PropType) => {
                   ref={firstField}
                   id="username"
                   placeholder="Please enter room name"
+                  {...register("name")}
                 />
               </Box>
 
               <Box>
                 <FormLabel htmlFor="owner">Select type</FormLabel>
-                <Select id="owner" defaultValue="segun">
+                <Select id="owner" defaultValue="segun" {...register("type")}>
                   {typeOptions.map((type) => {
                     return <option value={type}>{type}</option>;
                   })}
@@ -77,7 +93,11 @@ const CreateRoomDrawer = ({ setIsDrawerOpen }: PropType) => {
 
               <Box>
                 <FormLabel htmlFor="desc">Description</FormLabel>
-                <Textarea id="desc" placeholder="Please enter description" />
+                <Textarea
+                  id="desc"
+                  placeholder="Please enter description"
+                  {...register("description")}
+                />
               </Box>
             </Stack>
           </DrawerBody>
@@ -86,7 +106,9 @@ const CreateRoomDrawer = ({ setIsDrawerOpen }: PropType) => {
             <Button variant="outline" mr={3} onClick={handleClose}>
               Cancel
             </Button>
-            <Button colorScheme="blue">Submit</Button>
+            <Button colorScheme="blue" onClick={submitForm}>
+              Submit
+            </Button>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>

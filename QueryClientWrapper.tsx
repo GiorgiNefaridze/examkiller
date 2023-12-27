@@ -8,4 +8,4 @@ const QueryClientWrapper: QClientWrapperType<JSX.Element> = ({ children }) => {
   return <QueryClientProvider client={client}>{children}</QueryClientProvider>;
 };
 
-export { QueryClientWrapper };
+export { QueryClientWrapper, client };

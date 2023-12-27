@@ -1,3 +1,5 @@
+import { type UserType } from "../hooks/useLogin";
+
 const setCookie = (name: string, payload: any) => {
   const serializedObject = JSON.stringify(payload);
 
@@ -10,7 +12,7 @@ const deleteCookie = (name: string) => {
   document.cookie = `${name}=; expires=${date}`;
 };
 
-const getCookie = (name: string) => {
+const getCookie = (name: string): UserType | undefined => {
   if (!document.cookie.length) return;
   const cookie = document.cookie
     ?.split("=")
