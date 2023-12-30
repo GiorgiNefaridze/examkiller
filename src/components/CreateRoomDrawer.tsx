@@ -23,10 +23,12 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { useForm } from "react-hook-form";
+import { Toaster } from "sonner";
 
 import { useCreateRoom } from "../hooks/useCreateRoom";
 import { type RoomModelType } from "../hooks/useCreateRoom";
 import { getCookie } from "../helpers/cookie";
+import { Toast } from "../helpers/Toast";
 
 type PropType = {
   setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
@@ -42,7 +44,15 @@ const CreateRoomDrawer = ({ setIsDrawerOpen }: PropType) => {
   const { register, handleSubmit } = useForm<RoomModelType>({
     defaultValues: { ownerId: user?.userId },
   });
-  const { data, error, mutateAsync } = useCreateRoom();
+  const { data, error, mutateAsync: Create } = useCreateRoom();
+
+  const response = data?.response;
+
+  useEffect(() => {
+    if (error?.message || response) {
+      Toast(error?.message, response);
+    }
+  }, [error?.message, response]);
 
   useEffect(() => {
     onOpen();
@@ -54,7 +64,7 @@ const CreateRoomDrawer = ({ setIsDrawerOpen }: PropType) => {
   };
 
   const submitForm = handleSubmit(async (data) => {
-    await mutateAsync(data);
+    await Create(data);
   });
 
   return (
@@ -111,6 +121,7 @@ const CreateRoomDrawer = ({ setIsDrawerOpen }: PropType) => {
             </Button>
           </DrawerFooter>
         </DrawerContent>
+        <Toaster richColors closeButton />
       </Drawer>
     </>
   );

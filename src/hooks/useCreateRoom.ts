@@ -1,6 +1,7 @@
 import { useMutation } from "@tanstack/react-query";
 
 import networkClient from "../../network";
+import { client } from "../../QueryClientWrapper";
 import { ResponseType } from "./useRegister";
 
 export type RoomModelType = {
@@ -23,7 +24,7 @@ const useCreateRoom = () => {
   const createRoom = async (roomModel: RoomModelType) => {
     try {
       const { data } = await networkClient.post<ResponseType>(
-        "Room/Create",
+        "Room",
         DTOMapper(roomModel)
       );
 
@@ -36,6 +37,9 @@ const useCreateRoom = () => {
   return useMutation({
     mutationKey: ["createRoom"],
     mutationFn: createRoom,
+    onSuccess: () => {
+      return client.invalidateQueries({ queryKey: ["getRooms"] });
+    },
   });
 };
 
