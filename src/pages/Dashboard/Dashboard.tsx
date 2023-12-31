@@ -25,25 +25,16 @@ export const NoContentCMP = () => {
 const Dashboard = () => {
   const { data, isLoading } = useGetRooms();
 
-  // const IsData = useMemo(
-  //   () => (data?.length ? Groups : NoContentCMP),
-  //   [data?.length]
-  // );
+  const IsData = useMemo(
+    () => (data?.length ? <Groups data={data} /> : <NoContentCMP />),
+    [data?.length]
+  );
 
   return (
     <DashboardWrapper>
       <Navbar />
-      {/* {isLoading ? (
-        <Loader />
-      ) : (
-        <>
-          <DashboarContent>
-            <IsData />
-          </DashboarContent>
-          <Toaster closeButton richColors />
-        </>
-      )} */}
-      <Groups {...data} />
+      {isLoading ? <Loader /> : <DashboarContent>{IsData}</DashboarContent>}
+      <Toaster closeButton richColors />
     </DashboardWrapper>
   );
 };

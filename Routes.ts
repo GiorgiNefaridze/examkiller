@@ -18,7 +18,7 @@ const Routes: RoutesType = {
     component: Register,
   },
   Dashboard: {
-    path: "/Dashboard",
+    path: "/",
     component: Dashboard,
   },
 } as const;

@@ -9,13 +9,12 @@ export const DashboardWrapper = styled.div`
 `;
 
 export const DashboarContent = styled.div`
-  flex: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex: 1;
 `;
 
 export const NoContent = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
   align-items: center;

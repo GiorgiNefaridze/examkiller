@@ -7,21 +7,29 @@ type ResponseRoomModelType = {
   name: string;
   type: string;
   description: string;
-  ownerId: number;
+  owner: OwnerType;
+};
+
+type OwnerType = {
+  nickname: string;
+  email: string;
 };
 
 type ResponseType = {
   response: ResponseRoomModelType[];
 };
 
-const responseDTOMapper = <T>(request: T[]) => {
+const responseDTOMapper = <T>(request: T[]): T[] => {
   return request?.map((room: T) => {
     return {
       roomId: room.roomId,
       name: room.name,
       type: room.type,
       description: room.description,
-      ownerId: room.ownerId,
+      owner: {
+        nickname: room.owner.nickname,
+        email: room.owner.email,
+      },
     };
   });
 };
