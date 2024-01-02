@@ -1,15 +1,29 @@
-import { createElement } from "react";
+import { createElement, useEffect, useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 import { Routes as RoutePaths } from "../Routes";
 import { ProtectedRoute } from "./helpers/protectedRoute";
+import { getCookie } from "./helpers/cookie";
 
 import { ResetCSS } from "./Index.style";
+import Navbar from "./components/Navbar/Navbar";
 
 const App = () => {
+  const [isShowNavbar, setIsShowNavbar] = useState<boolean>(false);
+
+  const user = getCookie("user");
+
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    setIsShowNavbar(user && Object.keys(user)?.length ? true : false);
+  }, [pathname]);
+
   return (
-    <>
+    <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
       <ResetCSS />
+      {isShowNavbar && <Navbar />}
       <Routes>
         {Object.values(RoutePaths)?.map(({ path, component }, idx) => {
           return (
@@ -25,7 +39,7 @@ const App = () => {
           );
         })}
       </Routes>
-    </>
+    </div>
   );
 };
 

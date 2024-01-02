@@ -1,7 +1,6 @@
 import { useMemo, memo } from "react";
 import { Toaster } from "sonner";
 
-import Navbar from "../../components/Navbar/Navbar";
 import Loader from "../../components/Loader/Loader";
 import Groups from "../../components/Groups/Groups";
 import { useGetRooms } from "../../hooks/useGetRooms";
@@ -27,12 +26,11 @@ const Dashboard = () => {
 
   const IsData = useMemo(
     () => (data?.length ? <Groups data={data} /> : <NoContentCMP />),
-    [data?.length]
+    [data]
   );
 
   return (
     <DashboardWrapper>
-      <Navbar />
       {isLoading ? <Loader /> : <DashboarContent>{IsData}</DashboarContent>}
       <Toaster closeButton richColors />
     </DashboardWrapper>

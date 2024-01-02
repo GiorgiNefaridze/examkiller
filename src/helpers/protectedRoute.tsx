@@ -17,7 +17,7 @@ const ProtectedRoute: ProtectedRouteType = ({ children, path }) => {
     return <Navigate to={Routes.Login.path} />;
   }
 
-  if (user && path !== Routes.Dashboard.path) {
+  if (user && path !== Routes.Dashboard.path && path !== Routes.Group.path) {
     return <Navigate to={Routes.Dashboard.path} />;
   }
 

@@ -1,10 +1,9 @@
 import styled from "styled-components";
 
 export const DashboardWrapper = styled.div`
+  flex: 1;
   display: flex;
   flex-direction: column;
-  width: 100%;
-  height: 100vh;
   background-color: #f3f4f6;
 `;
 

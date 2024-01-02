@@ -8,6 +8,7 @@ type ResponseRoomModelType = {
   type: string;
   description: string;
   owner: OwnerType;
+  isJoined: boolean;
 };
 
 type OwnerType = {
@@ -30,6 +31,7 @@ const responseDTOMapper = <T>(request: T[]): T[] => {
         nickname: room.owner.nickname,
         email: room.owner.email,
       },
+      isJoined: room.isJoined,
     };
   });
 };
