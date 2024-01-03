@@ -8,6 +8,7 @@ import {
   ArticleModelType,
   useCreateArticle,
 } from "../../hooks/useCreateArticle";
+import { useGetArticles } from "../../hooks/useGetArticles";
 import { Toast } from "../../helpers/Toast";
 
 import { GroupInput, GroupWrapper } from "./Group.style";
@@ -19,9 +20,10 @@ type DataType = Record<Field, string>;
 const Group = () => {
   const [isInpShow, setIsInpShow] = useState<boolean>(true);
 
+  const location = useLocation();
   const { register, handleSubmit, reset } = useForm<DataType>();
   const { data, error, mutateAsync: CreateArticle } = useCreateArticle();
-  const location = useLocation();
+  const { data: articles } = useGetArticles(location.state?.roomId);
 
   useEffect(() => {
     if (error?.message || data) {
@@ -77,6 +79,7 @@ const Group = () => {
           <Button>Add</Button>
         </form>
       )}
+      <div></div>
       <Toaster richColors closeButton />
     </GroupWrapper>
   );
