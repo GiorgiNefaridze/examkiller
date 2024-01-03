@@ -2,6 +2,7 @@ import { useMutation } from "@tanstack/react-query";
 
 import networkClient from "../../network";
 import { ResponseType } from "./useRegister";
+import { client } from "../../QueryClientWrapper";
 
 type ArticleModelType = {
   title: string;
@@ -26,6 +27,9 @@ const useCreateArticle = () => {
   return useMutation({
     mutationKey: ["createArticle"],
     mutationFn: createArticle,
+    onSuccess: () => {
+      return client.invalidateQueries({ queryKey: ["getArticles"] });
+    },
   });
 };
 

@@ -14,7 +14,7 @@ const articleDtoMapper = (articles: ArticleModel[]) => {
     return {
       title: article.title,
       content: article.content,
-      date: article.date.split(" ")[0],
+      date: article.date.slice(0, 10),
       owner: article.owner,
     };
   });

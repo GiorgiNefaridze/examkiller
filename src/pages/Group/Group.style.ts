@@ -2,19 +2,20 @@ import styled from "styled-components";
 
 export const GroupWrapper = styled.div`
   flex: 1;
+  display: flex;
+  flex-direction: column;
 
   form {
     width: 100%;
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    row-gap: 10px;
 
     div {
       width: 80%;
       display: flex;
       flex-direction: column;
-      row-gap: 10px;
+      row-gap: 20px;
     }
 
     button {
@@ -46,4 +47,15 @@ export const GroupInput = styled.input`
   &::placeholder {
     color: #3081d0;
   }
+`;
+
+export const Articles = styled.div`
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  row-gap: 50px;
+  margin-block: 25px;
+  overflow-y: auto;
 `;

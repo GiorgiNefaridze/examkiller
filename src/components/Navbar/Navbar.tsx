@@ -29,7 +29,7 @@ const Navbar = () => {
 
   return (
     <NavWrapper>
-      <img src={Logo} />
+      <img src={Logo} onClick={() => navigate(Routes.Dashboard.path)} />
       <ButtonGroup>
         {isLead && <Button onClick={handleOpen}>Create Room</Button>}
         <Button onClick={handleLogout}>Logout</Button>

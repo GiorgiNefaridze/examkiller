@@ -4,26 +4,28 @@ import { useLocation } from "react-router-dom";
 import { RiAddBoxFill } from "react-icons/ri";
 import { Toaster } from "sonner";
 
+import Article from "../../components/Article/Article";
+import Loader from "../../components/Loader/Loader";
 import {
   ArticleModelType,
   useCreateArticle,
 } from "../../hooks/useCreateArticle";
-import { useGetArticles } from "../../hooks/useGetArticles";
+import { ArticleModel, useGetArticles } from "../../hooks/useGetArticles";
 import { Toast } from "../../helpers/Toast";
 
-import { GroupInput, GroupWrapper } from "./Group.style";
+import { Articles, GroupInput, GroupWrapper } from "./Group.style";
 import { Button } from "../Register/Register.style";
 
 type Field = "title" | "content";
 type DataType = Record<Field, string>;
 
 const Group = () => {
-  const [isInpShow, setIsInpShow] = useState<boolean>(true);
+  const [isInpShow, setIsInpShow] = useState<boolean>(false);
 
   const location = useLocation();
   const { register, handleSubmit, reset } = useForm<DataType>();
   const { data, error, mutateAsync: CreateArticle } = useCreateArticle();
-  const { data: articles } = useGetArticles(location.state?.roomId);
+  const { data: articles, isLoading } = useGetArticles(location.state?.roomId);
 
   useEffect(() => {
     if (error?.message || data) {
@@ -54,7 +56,7 @@ const Group = () => {
   return (
     <GroupWrapper>
       <label>
-        <p>Add Something Productive For Group</p>
+        <p>Add Something Productive For Group ({location.state?.name})</p>
         <RiAddBoxFill
           color="#3081d0"
           size={30}
@@ -79,7 +81,15 @@ const Group = () => {
           <Button>Add</Button>
         </form>
       )}
-      <div></div>
+      <Articles>
+        {isLoading ? (
+          <Loader />
+        ) : (
+          articles?.map((articles: ArticleModel) => {
+            return <Article key={articles.title} {...articles} />;
+          })
+        )}
+      </Articles>
       <Toaster richColors closeButton />
     </GroupWrapper>
   );
