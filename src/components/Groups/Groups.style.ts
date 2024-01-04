@@ -15,4 +15,8 @@ export const GroupWrapper = styled.div`
     color: #3081d0;
     letter-spacing: 0.5px;
   }
+
+  @media only screen and (max-width: 1024px) {
+    padding-inline: 3%;
+  }
 `;

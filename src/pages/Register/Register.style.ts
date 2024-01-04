@@ -1,3 +1,4 @@
+import { Box } from "@chakra-ui/react";
 import styled from "styled-components";
 
 export const Wrapper = styled.div`
@@ -17,6 +18,11 @@ export const Form = styled.div`
   align-items: center;
   flex-direction: column;
   row-gap: 25px;
+
+  @media only screen and (max-width: 1024px) {
+    width: 80%;
+    margin: auto;
+  }
 `;
 
 export const FormGroup = styled.div`
@@ -43,6 +49,10 @@ export const FormGroup = styled.div`
     align-items: center;
     row-gap: 25px;
   }
+
+  @media only screen and (max-width: 1024px) {
+    width: 100%;
+  }
 `;
 
 export const SideBar = styled.div`
@@ -54,6 +64,10 @@ export const SideBar = styled.div`
 
   img {
     transform: translateX(-30%);
+  }
+
+  @media only screen and (max-width: 1024px) {
+    display: none;
   }
 `;
 
@@ -101,4 +115,15 @@ export const RoleContent = styled.div`
   display: flex;
   column-gap: 10px;
   justify-content: space-between;
+`;
+
+export const StepperContainer = styled(Box)`
+  position: relative;
+  width: 300;
+  z-index: 30;
+  margin-bottom: 30;
+
+  @media only screen and (max-width: 1024px) {
+    width: 40% !important;
+  }
 `;

@@ -17,7 +17,7 @@ export const NoContentCMP = () => {
   return (
     <NoContent>
       <img src={NoContentLoadedImage} />
-      <h1>There is no room</h1>
+      <h1>There is no content here</h1>
     </NoContent>
   );
 };

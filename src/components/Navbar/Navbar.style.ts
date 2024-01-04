@@ -11,6 +11,18 @@ export const NavWrapper = styled.nav`
   img {
     width: 250px;
     cursor: pointer;
+
+    @media only screen and (max-width: 1024px) {
+      width: 200px;
+    }
+  }
+
+  @media only screen and (max-width: 1024px) {
+    padding-inline: 15px;
+  }
+
+  @media only screen and (max-width: 460px) {
+    padding-inline: 10px;
   }
 `;
 
@@ -28,4 +40,12 @@ export const Button = styled.button`
   color: #3081d0;
   font-weight: 500;
   cursor: pointer;
+
+  @media only screen and (max-width: 1024px) {
+    padding: 8px;
+  }
+
+  @media only screen and (max-width: 460px) {
+    padding: 5px;
+  }
 `;

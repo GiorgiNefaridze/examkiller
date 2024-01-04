@@ -41,6 +41,10 @@ export const Button = styled.button`
   letter-spacing: 0.5px;
   cursor: pointer;
   filter: blur(0.2px);
+
+  @media only screen and (max-width: 460px) {
+    padding: 8px 15px;
+  }
 `;
 
 export const GroupButtons = styled.div`

@@ -17,10 +17,18 @@ export const RoleContainer = styled.div<PropType | HTMLDivElement>`
 
   img {
     width: 12rem;
+
+    @media only screen and (max-width: 1024px) {
+      width: 9rem;
+    }
   }
 
   p {
     font-weight: 500;
     color: ${({ isSelected }) => (isSelected ? "#3081d0" : "black")};
+  }
+
+  @media only screen and (max-width: 1024px) {
+    padding: 0;
   }
 `;

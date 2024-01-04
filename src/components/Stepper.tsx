@@ -1,6 +1,5 @@
 import { memo } from "react";
 import {
-  Box,
   Progress,
   Step,
   StepIcon,
@@ -8,6 +7,8 @@ import {
   StepStatus,
   Stepper as StepperBox,
 } from "@chakra-ui/react";
+
+import { StepperContainer } from "../pages/Register/Register.style";
 
 type StepperType = {
   index: number;
@@ -21,7 +22,12 @@ const Stepper = ({ complete, index }: StepperType) => {
   const progressPercent = (complete / max) * 100;
 
   return (
-    <Box position="relative" width={300} zIndex={30} marginBottom={30}>
+    <StepperContainer
+      position="relative"
+      width={300}
+      zIndex={30}
+      marginBottom={30}
+    >
       <StepperBox size="sm" index={index} gap="0">
         {steps.map((step, index) => (
           <Step key={index} gap="0">
@@ -39,7 +45,7 @@ const Stepper = ({ complete, index }: StepperType) => {
         top="10px"
         zIndex={-1}
       />
-    </Box>
+    </StepperContainer>
   );
 };
 

@@ -23,4 +23,8 @@ export const ArticleWrapper = styled.div`
   &:nth-child(5n) {
     margin-inline: 0px;
   }
+
+  @media only screen and (max-width: 660px) {
+    width: 100%;
+  }
 `;

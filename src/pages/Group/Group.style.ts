@@ -4,6 +4,7 @@ export const GroupWrapper = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
+  padding: 50px;
 
   form {
     width: 100%;
@@ -16,16 +17,22 @@ export const GroupWrapper = styled.div`
       display: flex;
       flex-direction: column;
       row-gap: 20px;
+
+      @media only screen and (max-width: 768px) {
+        width: 70%;
+      }
     }
 
     button {
       width: 18%;
       align-self: stretch;
       font-size: 22px;
+
+      @media only screen and (max-width: 768px) {
+        width: 25%;
+      }
     }
   }
-
-  padding: 50px;
 
   & > label {
     display: flex;
@@ -34,6 +41,14 @@ export const GroupWrapper = styled.div`
     font-size: 18px;
     font-weight: 500;
     color: #3081d0;
+
+    @media only screen and (max-width: 768px) {
+      font-size: 16px;
+    }
+  }
+
+  @media only screen and (max-width: 768px) {
+    padding: 20px;
   }
 `;
 
@@ -57,5 +72,6 @@ export const Articles = styled.div`
   justify-content: flex-start;
   row-gap: 50px;
   margin-block: 25px;
-  overflow-y: auto;
+  overflow: auto;
+  overflow-x: hidden;
 `;
