@@ -36,10 +36,12 @@ const responseDTOMapper = <T>(request: T[]): T[] => {
   });
 };
 
-const useGetRooms = () => {
+const useGetRooms = (userId: number) => {
   const getRooms = async () => {
     try {
-      const { data } = await networkClient.get<ResponseType>("/Room");
+      const { data } = await networkClient.get<ResponseType>(
+        `/Room/user/${userId}`
+      );
 
       return responseDTOMapper<ResponseRoomModelType>(data?.response);
     } catch (error) {

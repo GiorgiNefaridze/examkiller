@@ -29,8 +29,11 @@ export const FormGroup = styled.div`
   row-gap: 15px;
 
   h1 {
-    font-family: sans-serif;
+    font-family: "Roboto";
     font-weight: bold;
+    font-size: 20px;
+    letter-spacing: 2px;
+    color: #3081d0;
   }
 
   form {

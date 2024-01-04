@@ -92,7 +92,7 @@ const Register = () => {
           <Stepper index={index} complete={complete} />
           {!complete ? (
             <>
-              <h1>Register account 🚀</h1>
+              <h1>Register account</h1>
               <form>
                 <InputLabel
                   label="Nickname"

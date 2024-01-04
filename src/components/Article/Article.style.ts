@@ -1,7 +1,7 @@
 import styled from "styled-components";
 
 export const ArticleWrapper = styled.div`
-  width: 15%;
+  width: 19%;
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -10,7 +10,7 @@ export const ArticleWrapper = styled.div`
   background-color: #3081d0;
   border-radius: 10px;
   color: white;
-  margin-inline: 3%;
+  margin-right: 1.2%;
   cursor: pointer;
 
   & > div {

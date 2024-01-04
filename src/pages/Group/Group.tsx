@@ -15,6 +15,7 @@ import { Toast } from "../../helpers/Toast";
 
 import { Articles, GroupInput, GroupWrapper } from "./Group.style";
 import { Button } from "../Register/Register.style";
+import { NoContentCMP } from "../Dashboard/Dashboard";
 
 type Field = "title" | "content";
 type DataType = Record<Field, string>;
@@ -52,6 +53,10 @@ const Group = () => {
     await CreateArticle(articleDto);
     reset();
   };
+
+  if (!articles?.length) {
+    return <NoContentCMP />;
+  }
 
   return (
     <GroupWrapper>
