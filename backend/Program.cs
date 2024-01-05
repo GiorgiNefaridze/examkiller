@@ -7,6 +7,7 @@ string? connectionString = builder.Configuration.GetConnectionString("DdConnecti
 builder.Services.AddDbContext<ExamKillerDbContext>(opt => opt.UseNpgsql(connectionString));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddControllers();
 
 var app = builder.Build();
 
