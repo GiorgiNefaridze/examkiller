@@ -18,7 +18,7 @@ const useRegister = () => {
   const register = async (userModel: FormType) => {
     try {
       const { data } = await networkClient.post<ResponseType>(
-        "/User/Create",
+        "/User",
         DTOMapper(userModel)
       );
 
