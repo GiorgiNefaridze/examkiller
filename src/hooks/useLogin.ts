@@ -16,20 +16,12 @@ export type UserType = {
 
 type ResponseType = { response: UserType };
 
-const DTOMapper = (request) => {
-  return {
-    Email: request.Email,
-    Password: request.Password,
-  };
-};
-
 const useLogin = () => {
   const navigate = useNavigate();
   const login = async (userModel: LoginType) => {
     try {
-      const { data } = await networkClient.post<ResponseType>(
-        "/User/Get",
-        DTOMapper(userModel)
+      const { data } = await networkClient.get<ResponseType>(
+        `/User/login?Email=${userModel.Email}&Password=${userModel.Password}`
       );
 
       setCookie("user", data.response);
