@@ -8,8 +8,13 @@ builder.Services.AddDbContext<ExamKillerDbContext>(opt => opt.UseNpgsql(connecti
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddControllers();
+builder.Services.AddCors(c => c.AddDefaultPolicy(
+    b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
+));
 
 var app = builder.Build();
+
+app.UseCors();
 
 if (app.Environment.IsDevelopment())
 {
@@ -18,5 +23,9 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();   
 
 app.Run();
