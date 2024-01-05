@@ -22,9 +22,9 @@ public class EnrollUserController : ControllerBase
 
         Task<EnrollUser> isExists = _context.EnrollUsers.FirstOrDefaultAsync(eu => eu.RoomId == enrollUserRequest.RoomId && eu.UserId == enrollUserRequest.UserId );
 
-        if(isExists == null)
+        if(isExists.Result != null)
         {
-            return BadRequest();
+            return BadRequest(new {ErrorMessage = "You are already enrolled in this room"});
         }
 
         _context.EnrollUsers.Add(enrollUser);

@@ -13,7 +13,7 @@ const useEnroll = () => {
   const enroll = async (enrollModel: enrollModelType) => {
     try {
       const { data } = await networkClient.post<ResponseType>(
-        "/RoomUser",
+        "/EnrollUser",
         enrollModel
       );
 
