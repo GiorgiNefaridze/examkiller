@@ -1,10 +1,12 @@
 {
   "version": 2,
-  "dgSpecHash": "D39hoqDo17sZhU4lGkcPXax893MTwAfcqBkDmFEyET7/NCbcXJ2GP08k4TNU6c7md2/lV6on1y3xzVqgATnKQg==",
+  "dgSpecHash": "0H5o6mLvVidomHsFCzUNXc0s27jxzg5TjddldI87UbKi8rytee3JRZKUfcE0aB+XR3ux3gRmhOuT1rWJZA4aMg==",
   "success": true,
   "projectFilePath": "D:\\examkiller\\backend\\backend.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Giorgi\\.nuget\\packages\\humanizer.core\\2.14.1\\humanizer.core.2.14.1.nupkg.sha512",
+    "C:\\Users\\Giorgi\\.nuget\\packages\\mapster\\7.4.0\\mapster.7.4.0.nupkg.sha512",
+    "C:\\Users\\Giorgi\\.nuget\\packages\\mapster.core\\1.2.1\\mapster.core.1.2.1.nupkg.sha512",
     "C:\\Users\\Giorgi\\.nuget\\packages\\microsoft.aspnetcore.openapi\\8.0.0\\microsoft.aspnetcore.openapi.8.0.0.nupkg.sha512",
     "C:\\Users\\Giorgi\\.nuget\\packages\\microsoft.bcl.asyncinterfaces\\6.0.0\\microsoft.bcl.asyncinterfaces.6.0.0.nupkg.sha512",
     "C:\\Users\\Giorgi\\.nuget\\packages\\microsoft.codeanalysis.analyzers\\3.3.3\\microsoft.codeanalysis.analyzers.3.3.3.nupkg.sha512",
