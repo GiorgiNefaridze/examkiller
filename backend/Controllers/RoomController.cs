@@ -18,9 +18,22 @@ public class RoomController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Get([FromRoute] int userId)
     {
-        var rooms = _context.Rooms
-        .Select(r => new {
+        List<EnrollUser> enrollUsers = _context.EnrollUsers.ToList();
+
+       var simpleRooms = _context.Rooms
+        .Select(r => new
+        {
             RoomId = r.RoomId,
+            Name = r.Name,
+            Type = r.Type,
+            Description = r.Description,
+            OwnerId = r.User.UserId
+        })
+        .ToList();
+
+        var rooms = simpleRooms
+        .Select(r => new {
+            RoomId = r.RoomId,  
             Name = r.Name,
             Type = r.Type,
             Description = r.Description,
@@ -30,13 +43,14 @@ public class RoomController : ControllerBase
                 Nickname = u.Nickname,
                 Email = u.Email,
             })
-            .FirstOrDefault()
+            .FirstOrDefault(),
+            IsJoined = enrollUsers.Any(eu => eu.RoomId == r.RoomId && eu.UserId == userId)
         })
-        .ToList();  
+        .ToList();
 
         if (rooms.Count == 0)
-         {
-        return BadRequest(new { ErrorMessage = "There is no room" });
+        {
+            return BadRequest(new { ErrorMessage = "There is no room" });
         }
 
         return Ok(new { Response = rooms });
