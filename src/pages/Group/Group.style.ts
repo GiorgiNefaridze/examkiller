@@ -3,8 +3,8 @@ import styled from "styled-components";
 export const GroupWrapper = styled.div`
   flex: 1;
   display: flex;
-  flex-direction: column;
   padding: 50px;
+  overflow: hidden;
 
   form {
     width: 100%;
@@ -24,7 +24,6 @@ export const GroupWrapper = styled.div`
     }
 
     button {
-      width: 18%;
       align-self: stretch;
       font-size: 22px;
 
@@ -65,13 +64,30 @@ export const GroupInput = styled.input`
 `;
 
 export const Articles = styled.div`
-  width: 100%;
-  height: auto;
+  flex: 1;
+  height: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
-  row-gap: 50px;
-  margin-block: 25px;
-  overflow: auto;
-  overflow-x: hidden;
+  row-gap: 20px;
+  padding-inline: 50px;
+  overflow-y: scroll;
+
+  &::-webkit-scrollbar {
+    width: 10px;
+    background: transparent;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #3081d0;
+    border-radius: 10px;
+  }
+
+  @media only screen and (max-width: 900px) {
+    padding-inline: 0px;
+
+    &::-webkit-scrollbar {
+      width: 0px;
+    }
+  }
 `;

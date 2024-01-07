@@ -12,17 +12,20 @@ import {
 } from "../../hooks/useCreateArticle";
 import { ArticleModel, useGetArticles } from "../../hooks/useGetArticles";
 import { Toast } from "../../helpers/Toast";
-
-import { Articles, GroupInput, GroupWrapper } from "./Group.style";
-import { Button } from "../Register/Register.style";
 import { NoContentCMP } from "../Dashboard/Dashboard";
+
+import { Button } from "../Register/Register.style";
+import { Articles, GroupInput, GroupWrapper } from "./Group.style";
+import {
+  GroupInfo,
+  GroupContent,
+  GroupInfoDetailsContainer,
+} from "../../components/Article/Article.style";
 
 type Field = "title" | "content";
 type DataType = Record<Field, string>;
 
 const Group = () => {
-  const [isInpShow, setIsInpShow] = useState<boolean>(false);
-
   const location = useLocation();
   const { register, handleSubmit, reset } = useForm<DataType>();
   const { data, error, mutateAsync: CreateArticle } = useCreateArticle();
@@ -54,24 +57,26 @@ const Group = () => {
     reset();
   };
 
-  if (!articles?.length) {
-    return <NoContentCMP />;
-  }
+  const GroupInforDetails = {
+    Title: location?.state?.name,
+    Type: location?.state?.type,
+    Description: location?.state?.description,
+    Owner: location?.state?.owner?.nickname,
+  };
 
   return (
     <GroupWrapper>
-      <label>
-        <p>Add Something Productive For Group ({location.state?.name})</p>
-        <RiAddBoxFill
-          color="#3081d0"
-          size={30}
-          cursor="pointer"
-          onClick={handleOpen}
-        />
-      </label>
-      {isInpShow && (
-        <form onSubmit={handleSubmit(submitForm)}>
-          <div>
+      <GroupContent>
+        <GroupInfo>
+          {Object.entries(GroupInforDetails).map(([key, val], idx: number) => {
+            return (
+              <GroupInfoDetailsContainer key={idx}>
+                <p>{key}</p>
+                <p>{val}</p>
+              </GroupInfoDetailsContainer>
+            );
+          })}
+          <form onSubmit={handleSubmit(submitForm)}>
             <GroupInput
               type="text"
               placeholder="Content title..."
@@ -82,20 +87,22 @@ const Group = () => {
               placeholder="Type content here..."
               {...getFormFields("content")}
             />
-          </div>
-          <Button>Add</Button>
-        </form>
-      )}
-      <Articles>
-        {isLoading ? (
-          <Loader />
-        ) : (
-          articles?.map((articles: ArticleModel) => {
-            return <Article key={articles.title} {...articles} />;
-          })
-        )}
-      </Articles>
-      <Toaster richColors closeButton />
+            <Button>Add</Button>
+          </form>
+        </GroupInfo>
+        <Articles>
+          {isLoading ? (
+            <Loader />
+          ) : articles?.length ? (
+            articles?.map((articles: ArticleModel) => {
+              return <Article key={articles.title} {...articles} />;
+            })
+          ) : (
+            <NoContentCMP />
+          )}
+        </Articles>
+        <Toaster richColors closeButton />
+      </GroupContent>
     </GroupWrapper>
   );
 };
