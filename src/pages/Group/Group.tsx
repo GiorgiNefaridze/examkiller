@@ -88,6 +88,7 @@ const Group = () => {
               {...getFormFields("content")}
             />
             <Button>Add</Button>
+            <Button id="leave">Leave</Button>
           </form>
         </GroupInfo>
         <Articles>

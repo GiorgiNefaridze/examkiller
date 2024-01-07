@@ -26,9 +26,10 @@ export const GroupWrapper = styled.div`
     button {
       align-self: stretch;
       font-size: 22px;
+      font-family: "Roboto";
 
-      @media only screen and (max-width: 768px) {
-        width: 25%;
+      &#leave {
+        background-color: red;
       }
     }
   }
