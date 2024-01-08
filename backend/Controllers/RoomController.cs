@@ -91,15 +91,4 @@ public class RoomController : ControllerBase
 
         return Ok(new { Response = "Room created successfully" });
     }
-
-    [HttpDelete]
-    [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> Delete([FromQuery] int roomId,[FromQuery] int userId)
-    {
-        EnrollUser? room =  _context.EnrollUsers.FirstOrDefault(eu => eu.UserId == userId && eu.RoomId == roomId);
-        _context.EnrollUsers.Remove(room);
-        await _context.SaveChangesAsync();
-
-        return Ok();
-    }
 }
