@@ -1,7 +1,6 @@
-import { memo, useEffect, useState } from "react";
+import { memo, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
-import { RiAddBoxFill } from "react-icons/ri";
 import { Toaster } from "sonner";
 
 import Article from "../../components/Article/Article";
@@ -11,8 +10,13 @@ import {
   useCreateArticle,
 } from "../../hooks/useCreateArticle";
 import { ArticleModel, useGetArticles } from "../../hooks/useGetArticles";
+import {
+  leaveGroupDtoType,
+  useLeaveFromGroup,
+} from "../../hooks/useLeaveFromGroup";
 import { Toast } from "../../helpers/Toast";
 import { NoContentCMP } from "../Dashboard/Dashboard";
+import { getCookie } from "../../helpers/cookie";
 
 import { Button } from "../Register/Register.style";
 import { Articles, GroupInput, GroupWrapper } from "./Group.style";
@@ -27,19 +31,17 @@ type DataType = Record<Field, string>;
 
 const Group = () => {
   const location = useLocation();
+  const user = getCookie("user");
   const { register, handleSubmit, reset } = useForm<DataType>();
   const { data, error, mutateAsync: CreateArticle } = useCreateArticle();
   const { data: articles, isLoading } = useGetArticles(location.state?.roomId);
+  const { mutateAsync: LeaveGroup } = useLeaveFromGroup();
 
   useEffect(() => {
     if (error?.message || data) {
       Toast(error?.message, data);
     }
   }, [error?.message, data]);
-
-  const handleOpen = () => {
-    setIsInpShow((prev) => !prev);
-  };
 
   const getFormFields = (field: Field) => ({
     ...register(field),
@@ -64,6 +66,11 @@ const Group = () => {
     Owner: location?.state?.owner?.nickname,
   };
 
+  const leaveGroupDto = {
+    roomId: location?.state?.roomId,
+    userId: user?.userId,
+  } as leaveGroupDtoType;
+
   return (
     <GroupWrapper>
       <GroupContent>
@@ -87,8 +94,14 @@ const Group = () => {
               placeholder="Type content here..."
               {...getFormFields("content")}
             />
-            <Button>Add</Button>
-            <Button id="leave">Leave</Button>
+            <Button type="submit">Add</Button>
+            <Button
+              type="button"
+              id="leave"
+              onClick={async () => await LeaveGroup(leaveGroupDto)}
+            >
+              Leave
+            </Button>
           </form>
         </GroupInfo>
         <Articles>
