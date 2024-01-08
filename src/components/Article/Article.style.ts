@@ -20,6 +20,11 @@ export const ArticleWrapper = styled.div`
     column-gap: 30px;
   }
 
+  h1 {
+    font-size: 20px;
+    text-transform: uppercase;
+  }
+
   @media only screen and (max-width: 900px) {
     width: 100%;
   }

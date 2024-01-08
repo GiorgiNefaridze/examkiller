@@ -47,7 +47,7 @@ const GroupBox = (props: ResponseRoomModelType) => {
 
   return (
     <GroupContainer title={name}>
-      <GroupContent>
+      <GroupContent isEnrolled={isJoined}>
         <h1>Title: {name}</h1>
         <h1>Description: {description}</h1>
         <h1>Lead: {nickname}</h1>

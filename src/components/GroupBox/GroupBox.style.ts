@@ -1,5 +1,9 @@
 import styled from "styled-components";
 
+type GroupContentType = {
+  isEnrolled: boolean;
+};
+
 export const GroupContainer = styled.div`
   position: relative;
   width: 100%;
@@ -9,7 +13,7 @@ export const GroupContainer = styled.div`
   border-radius: 10px;
 `;
 
-export const GroupContent = styled.div`
+export const GroupContent = styled.div<GroupContentType | HTMLDivElement>`
   position: absolute;
   top: 0;
   left: 0;
@@ -17,10 +21,10 @@ export const GroupContent = styled.div`
   bottom: 0;
   width: 100%;
   height: 100%;
-  border-radius: 10px;
   background-color: #6db0f1;
+  border-radius: 10px;
   padding: 10px;
-  filter: blur(1.2px);
+  filter: blur(${({ isEnrolled }) => (isEnrolled ? "0px" : "1.2px")});
 
   & > h1 {
     color: white !important;
