@@ -5,6 +5,7 @@ type PropType = {
 };
 
 export const RoleContainer = styled.div<PropType | HTMLDivElement>`
+  position: relative;
   border: ${({ isSelected }) =>
     isSelected ? "2px solid #3081d0" : "1px solid grey"};
   border-radius: 10px;
@@ -31,4 +32,11 @@ export const RoleContainer = styled.div<PropType | HTMLDivElement>`
   @media only screen and (max-width: 1024px) {
     padding: 0;
   }
+`;
+
+export const AboutRole = styled.div`
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(50%, -50%);
 `;
