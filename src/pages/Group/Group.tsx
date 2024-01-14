@@ -9,7 +9,7 @@ import {
   ArticleModelType,
   useCreateArticle,
 } from "../../hooks/useCreateArticle";
-import { ArticleModel, useGetArticles } from "../../hooks/useGetArticles";
+import { type ArticleModel, useGetArticles } from "../../hooks/useGetArticles";
 import {
   leaveGroupDtoType,
   useLeaveFromGroup,
@@ -34,7 +34,10 @@ const Group = () => {
   const user = getCookie("user");
   const { register, handleSubmit, reset } = useForm<DataType>();
   const { data, error, mutateAsync: CreateArticle } = useCreateArticle();
-  const { data: articles, isLoading } = useGetArticles(location.state?.roomId);
+  const { data: articles, isLoading } = useGetArticles(
+    location.state?.roomId,
+    user?.userId
+  );
   const { mutateAsync: LeaveGroup } = useLeaveFromGroup();
 
   useEffect(() => {
@@ -63,7 +66,7 @@ const Group = () => {
     Title: location?.state?.name,
     Type: location?.state?.type,
     Description: location?.state?.description,
-    Owner: location?.state?.owner?.nickname,
+    Creator: location?.state?.owner?.nickname?.toUpperCase(),
   };
 
   const leaveGroupDto = {

@@ -74,6 +74,7 @@ export const Articles = styled.div`
   overflow-x: hidden;
   overflow-y: scroll;
   box-sizing: border-box;
+  padding-top: 20px;
 
   &::-webkit-scrollbar {
     width: 10px;

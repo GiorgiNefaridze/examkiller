@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { AiFillLike } from "react-icons/ai";
 
 export const ArticleWrapper = styled.div`
   width: 100%;
@@ -11,6 +12,7 @@ export const ArticleWrapper = styled.div`
   border-radius: 10px;
   color: white;
   margin-right: 1.2%;
+  position: relative;
   cursor: pointer;
 
   & > div {
@@ -73,4 +75,18 @@ export const GroupInfoDetailsContainer = styled.div`
     font-weight: 500;
     font-family: "Roboto";
   }
+`;
+
+export const Like = styled(AiFillLike)<{ isLiked: boolean }>`
+  font-size: 30px;
+  position: absolute;
+  right: 0;
+  top: 0;
+  transform: translate(15%, -50%);
+  background-color: white;
+  border-radius: 50%;
+  color: ${({ isLiked }) => (isLiked ? "#3081d0" : "grey")};
+  border: 1px solid #3081d0;
+  padding: 5px;
+  cursor: pointer;
 `;

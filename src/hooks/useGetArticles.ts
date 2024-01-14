@@ -2,8 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 
 import networkClient from "../../network";
 type ArticleModel = {
+  articleId: number;
   title: string;
   content: string;
+  isLiked: boolean;
   date: string;
   owner: string;
 };
@@ -16,15 +18,17 @@ const articleDtoMapper = (articles: ArticleModel[]) => {
       content: article.content,
       date: article.date.slice(0, 10),
       owner: article.owner,
+      isLiked: article.isLiked,
+      articleId: article.articleId,
     };
   });
 };
 
-const useGetArticles = (roomId: number) => {
+const useGetArticles = (roomId: number, userId: number) => {
   const getArticles = async () => {
     try {
       const { data } = await networkClient.get<ResponseType>(
-        `/Article/room/${roomId}`
+        `/Article?roomId=${roomId}&userId=${userId}`
       );
 
       return articleDtoMapper(data?.response);
