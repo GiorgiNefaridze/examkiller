@@ -13,23 +13,33 @@ public class ArticleController : ControllerBase
         _context = context;
     }
 
-    [HttpGet("room/{roomId}")]
+    [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Get([FromRoute] int roomId)
+    public async Task<IActionResult> Get([FromQuery] int roomId, [FromQuery] int userId)
     {
         var articles = _context.Articles
             .Where(a => a.RoomId == roomId)
             .Select(a =>
                 new
                 {
+                    ArticleId = a.ArticleId,
                     Title = a.Title,
                     Content = a.Content,
-                    Date = a.Date,  
+                    Date = a.Date,
+                    isLiked = _context.LikedArticles.Any(la => la.ArticleId ==  a.ArticleId && la.UserId == userId),
                     Owner = _context.Users
                     .Where(u => u.UserId == a.OwnerId)
                     .Select(u => u.Nickname)
-                    .FirstOrDefault()
+                    .FirstOrDefault(),
+                    Likes = _context.LikedArticles
+                    .Where(la => la.ArticleId == a.ArticleId)
+                    .Select(la => new 
+                    {
+                        Nickname = _context.Users.Where(u => u.UserId == la.UserId).Select(u => u.Nickname).FirstOrDefault(),
+                        Email = _context.Users.Where(u => u.UserId == la.UserId).Select(u => u.Email).FirstOrDefault()
+                    })
+                    .ToList()
                 })
             .ToList();
 

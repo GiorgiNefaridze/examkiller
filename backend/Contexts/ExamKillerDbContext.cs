@@ -6,6 +6,7 @@ public class ExamKillerDbContext : DbContext
    public DbSet<Room> Rooms { get; set; }
    public DbSet<EnrollUser> EnrollUsers { get; set; }
    public DbSet<Article> Articles { get; set; }
+   public DbSet<LikedArticle> LikedArticles { get; set; }
    
    public ExamKillerDbContext(DbContextOptions<ExamKillerDbContext> options) : base(options) {}
 }
