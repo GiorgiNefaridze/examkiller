@@ -1,10 +1,11 @@
-import { memo } from "react";
+import { Dispatch, SetStateAction, memo } from "react";
 
 import { type ArticleModel } from "../../hooks/useGetArticles";
+import { type articleLikesDataType } from "../../pages/Group/Group";
 import { getCookie } from "../../helpers/cookie";
 import { useLikeArticle } from "../../hooks/useLikeArticle";
 
-import { ArticleWrapper, Like } from "./Article.style";
+import { ArticleWrapper, IconsWrapper, Like, See } from "./Article.style";
 
 const shortContentForArticle = (content: string, cutIdx: number) => {
   return content?.length > cutIdx ? content.slice(0, cutIdx) + "..." : content;
@@ -12,23 +13,36 @@ const shortContentForArticle = (content: string, cutIdx: number) => {
 
 const contentSize = 30;
 
+type ArticleModelType = ArticleModel & {
+  setIsShow: Dispatch<SetStateAction<boolean>>;
+  setArticleLikesData: Dispatch<SetStateAction<articleLikesDataType[]>>;
+};
+
 const Article = ({
   date,
   title,
   content,
   owner,
-  articleId,
   isLiked,
-}: ArticleModel) => {
+  articleId,
+  setIsShow,
+  setArticleLikesData,
+  likes,
+}: ArticleModelType) => {
   const { mutateAsync: LikeArticle } = useLikeArticle();
   const user = getCookie("user");
 
   const handleLike = async () => {
     const LikeArticleDto = {
       articleId,
-      userId: user?.userId ?? 43,
+      userId: user?.userId,
     };
     await LikeArticle(LikeArticleDto);
+  };
+
+  const handleSeeLikes = () => {
+    setIsShow(true);
+    setArticleLikesData(likes);
   };
 
   return (
@@ -39,7 +53,10 @@ const Article = ({
         <p>{owner}</p>
         <p>{date}</p>
       </div>
-      <Like onClick={handleLike} isLiked={isLiked} />
+      <IconsWrapper>
+        <Like onClick={handleLike} isLiked={isLiked} />
+        <See onClick={handleSeeLikes} />
+      </IconsWrapper>
     </ArticleWrapper>
   );
 };

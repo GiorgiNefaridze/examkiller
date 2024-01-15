@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { AiFillLike } from "react-icons/ai";
+import { FaEye } from "react-icons/fa";
 
 export const ArticleWrapper = styled.div`
   width: 100%;
@@ -77,15 +78,31 @@ export const GroupInfoDetailsContainer = styled.div`
   }
 `;
 
-export const Like = styled(AiFillLike)<{ isLiked: boolean }>`
-  font-size: 30px;
+export const IconsWrapper = styled.div`
+  display: flex;
+  align-items: center;
   position: absolute;
   right: 0;
   top: 0;
   transform: translate(15%, -50%);
+  column-gap: 8px !important;
+`;
+
+export const Like = styled(AiFillLike)<{ isLiked: boolean }>`
+  font-size: 30px;
   background-color: white;
   border-radius: 50%;
   color: ${({ isLiked }) => (isLiked ? "#3081d0" : "grey")};
+  border: 1px solid #3081d0;
+  padding: 5px;
+  cursor: pointer;
+`;
+
+export const See = styled(FaEye)`
+  font-size: 30px;
+  background-color: white;
+  border-radius: 50%;
+  color: #3081d0;
   border: 1px solid #3081d0;
   padding: 5px;
   cursor: pointer;

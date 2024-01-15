@@ -8,6 +8,10 @@ type ArticleModel = {
   isLiked: boolean;
   date: string;
   owner: string;
+  likes: {
+    nickname: string;
+    email: string;
+  }[];
 };
 type ResponseType = { errorMessage: string } | { response: ArticleModel[] };
 
@@ -20,6 +24,7 @@ const articleDtoMapper = (articles: ArticleModel[]) => {
       owner: article.owner,
       isLiked: article.isLiked,
       articleId: article.articleId,
+      likes: article.likes,
     };
   });
 };

@@ -1,10 +1,11 @@
-import { memo, useEffect } from "react";
+import { memo, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useLocation } from "react-router-dom";
 import { Toaster } from "sonner";
 
 import Article from "../../components/Article/Article";
 import Loader from "../../components/Loader/Loader";
+import LikesPopUp from "../../components/LikesPopUp/LikesPopUp";
 import {
   ArticleModelType,
   useCreateArticle,
@@ -29,7 +30,17 @@ import {
 type Field = "title" | "content";
 type DataType = Record<Field, string>;
 
+export type articleLikesDataType = {
+  nickname: string;
+  email: string;
+};
+
 const Group = () => {
+  const [isShow, setIsShow] = useState<boolean>(false);
+  const [articleLikesData, setArticleLikesData] = useState<
+    articleLikesDataType[]
+  >([]);
+
   const location = useLocation();
   const user = getCookie("user");
   const { register, handleSubmit, reset } = useForm<DataType>();
@@ -76,6 +87,9 @@ const Group = () => {
 
   return (
     <GroupWrapper>
+      {isShow && (
+        <LikesPopUp setIsShow={setIsShow} articleLikesData={articleLikesData} />
+      )}
       <GroupContent>
         <GroupInfo>
           {Object.entries(GroupInforDetails).map(([key, val], idx: number) => {
@@ -112,7 +126,14 @@ const Group = () => {
             <Loader />
           ) : articles?.length ? (
             articles?.map((articles: ArticleModel) => {
-              return <Article key={articles.title} {...articles} />;
+              return (
+                <Article
+                  key={articles.title}
+                  {...articles}
+                  setIsShow={setIsShow}
+                  setArticleLikesData={setArticleLikesData}
+                />
+              );
             })
           ) : (
             <NoContentCMP />

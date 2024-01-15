@@ -5,6 +5,7 @@ export const GroupWrapper = styled.div`
   display: flex;
   padding: 50px;
   overflow: hidden;
+  position: relative;
 
   form {
     width: 100%;
