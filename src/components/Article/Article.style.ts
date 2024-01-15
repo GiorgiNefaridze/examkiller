@@ -86,6 +86,10 @@ export const IconsWrapper = styled.div`
   top: 0;
   transform: translate(15%, -50%);
   column-gap: 8px !important;
+
+  @media only screen and (max-width: 1200px) {
+    transform: translate(0%, -50%);
+  }
 `;
 
 export const Like = styled(AiFillLike)<{ isLiked: boolean }>`

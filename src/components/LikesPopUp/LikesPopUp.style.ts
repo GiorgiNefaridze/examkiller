@@ -1,6 +1,8 @@
 import styled from "styled-components";
 
 export const LikesPopUpWrapper = styled.div`
+  width: 35%;
+  height: 60%;
   display: flex;
   flex-direction: column;
   row-gap: 20px;
@@ -8,14 +10,16 @@ export const LikesPopUpWrapper = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  width: 35%;
-  height: 60%;
   border-radius: 10px;
   border: 1px solid #3081d0;
   background-color: white;
   box-shadow: 0px 0px 0px 10000px rgba(0, 0, 0, 0.6);
   z-index: 20;
   overflow: hidden;
+
+  @media only screen and (max-width: 900px) {
+    width: 80%;
+  }
 `;
 
 export const LikesPopUpHeader = styled.div`
@@ -32,6 +36,16 @@ export const LikesPopUpContent = styled.div`
   display: flex;
   flex-direction: column;
   row-gap: 30px;
+  overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: #3081d0;
+    border-radius: 8px;
+  }
 `;
 
 export const Likes = styled.div`
