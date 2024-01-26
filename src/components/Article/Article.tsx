@@ -1,11 +1,12 @@
-import { Dispatch, SetStateAction, memo } from "react";
+import { Dispatch, SetStateAction, memo, useState } from "react";
 
 import { type ArticleModel } from "../../hooks/useGetArticles";
 import { type articleLikesDataType } from "../../pages/Group/Group";
 import { getCookie } from "../../helpers/cookie";
 import { useLikeArticle } from "../../hooks/useLikeArticle";
+import SeeMore from "../SeeMore/SeeMore";
 
-import { ArticleWrapper, IconsWrapper, Like, See } from "./Article.style";
+import { ArticleWrapper, IconsWrapper, Like, More } from "./Article.style";
 
 const shortContentForArticle = (content: string, cutIdx: number) => {
   return content?.length > cutIdx ? content.slice(0, cutIdx) + "..." : content;
@@ -18,6 +19,8 @@ type ArticleModelType = ArticleModel & {
   setArticleLikesData: Dispatch<SetStateAction<articleLikesDataType[]>>;
 };
 
+export type PositionType = Record<"x" | "y", number>;
+
 const Article = ({
   date,
   title,
@@ -29,20 +32,24 @@ const Article = ({
   setArticleLikesData,
   likes,
 }: ArticleModelType) => {
+  const [isSeeMoreShow, setIsSeeMoreShow] = useState(false);
+
   const { mutateAsync: LikeArticle } = useLikeArticle();
   const user = getCookie("user");
 
   const handleLike = async () => {
+    const userId = user?.userId;
+    if (!userId) return;
+
     const LikeArticleDto = {
       articleId,
-      userId: user?.userId,
+      userId,
     };
     await LikeArticle(LikeArticleDto);
   };
 
-  const handleSeeLikes = () => {
-    setIsShow(true);
-    setArticleLikesData(likes);
+  const handleSeeMore = () => {
+    setIsSeeMoreShow((prev) => !prev);
   };
 
   return (
@@ -55,7 +62,15 @@ const Article = ({
       </div>
       <IconsWrapper>
         <Like onClick={handleLike} isLiked={isLiked} />
-        <See onClick={handleSeeLikes} />
+        <More onClick={handleSeeMore} />
+        {isSeeMoreShow && (
+          <SeeMore
+            setIsShow={setIsShow}
+            likes={likes}
+            setArticleLikesData={setArticleLikesData}
+            setIsSeeMoreShow={setIsSeeMoreShow}
+          />
+        )}
       </IconsWrapper>
     </ArticleWrapper>
   );

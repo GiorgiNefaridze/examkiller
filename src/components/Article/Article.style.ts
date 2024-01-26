@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { AiFillLike } from "react-icons/ai";
-import { FaEye } from "react-icons/fa";
+import { HiDotsVertical } from "react-icons/hi";
 
 export const ArticleWrapper = styled.div`
   width: 100%;
@@ -72,9 +72,14 @@ export const GroupInfoDetailsContainer = styled.div`
   justify-content: space-between;
 
   p {
+    width: 50%;
     font-size: 18px;
     font-weight: 500;
     font-family: "Roboto";
+
+    &:last-child {
+      text-align: right;
+    }
   }
 `;
 
@@ -102,7 +107,17 @@ export const Like = styled(AiFillLike)<{ isLiked: boolean }>`
   cursor: pointer;
 `;
 
-export const See = styled(FaEye)`
+// export const See = styled(FaEye)`
+//   font-size: 30px;
+//   background-color: white;
+//   border-radius: 50%;
+//   color: #3081d0;
+//   border: 1px solid #3081d0;
+//   padding: 5px;
+//   cursor: pointer;
+// `;
+
+export const More = styled(HiDotsVertical)`
   font-size: 30px;
   background-color: white;
   border-radius: 50%;

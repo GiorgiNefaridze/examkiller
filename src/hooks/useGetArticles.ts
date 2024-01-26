@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
 import networkClient from "../../network";
+
 type ArticleModel = {
   articleId: number;
   title: string;
