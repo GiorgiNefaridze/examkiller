@@ -13,7 +13,7 @@ export const LikesPopUpWrapper = styled.div`
   border-radius: 10px;
   border: 1px solid #3081d0;
   background-color: white;
-  box-shadow: 0px 0px 0px 10000px rgba(0, 0, 0, 0.6);
+  box-shadow: 0px 0px 0px 10000px rgba(0, 0, 0, 0.4);
   z-index: 20;
   overflow: hidden;
 

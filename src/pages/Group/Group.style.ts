@@ -72,8 +72,6 @@ export const Articles = styled.div`
   flex-direction: column;
   row-gap: 20px;
   padding-inline: 50px;
-  overflow-x: hidden;
-  overflow-y: scroll;
   box-sizing: border-box;
   padding-top: 20px;
 

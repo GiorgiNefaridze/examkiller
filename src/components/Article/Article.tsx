@@ -1,4 +1,11 @@
-import { Dispatch, SetStateAction, memo, useState } from "react";
+import {
+  Dispatch,
+  SetStateAction,
+  memo,
+  useState,
+  useRef,
+  ElementRef,
+} from "react";
 
 import { type ArticleModel } from "../../hooks/useGetArticles";
 import { type articleLikesDataType } from "../../pages/Group/Group";
@@ -36,6 +43,7 @@ const Article = ({
 
   const { mutateAsync: LikeArticle } = useLikeArticle();
   const user = getCookie("user");
+  const seeMoreDotsRef = useRef<ElementRef<"div">>(null);
 
   const handleLike = async () => {
     const userId = user?.userId;
@@ -62,13 +70,16 @@ const Article = ({
       </div>
       <IconsWrapper>
         <Like onClick={handleLike} isLiked={isLiked} />
-        <More onClick={handleSeeMore} />
+        <div ref={seeMoreDotsRef}>
+          <More onClick={handleSeeMore} />
+        </div>
         {isSeeMoreShow && (
           <SeeMore
             setIsShow={setIsShow}
             likes={likes}
             setArticleLikesData={setArticleLikesData}
             setIsSeeMoreShow={setIsSeeMoreShow}
+            ref={seeMoreDotsRef}
           />
         )}
       </IconsWrapper>

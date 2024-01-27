@@ -1,7 +1,8 @@
-import { Dispatch, SetStateAction, memo, useState } from "react";
+import { Dispatch, SetStateAction, memo, useRef, ElementRef } from "react";
 import { IoCloseCircle } from "react-icons/io5";
 
 import { type articleLikesDataType } from "../../pages/Group/Group";
+import { NoContentCMP } from "../../pages/Dashboard/Dashboard";
 
 import {
   LikesPopUpWrapper,
@@ -9,7 +10,6 @@ import {
   LikesPopUpContent,
   Likes,
 } from "./LikesPopUp.style";
-import { NoContentCMP } from "../../pages/Dashboard/Dashboard";
 
 type LikesPopUpType = {
   setIsShow: Dispatch<SetStateAction<boolean>>;
@@ -17,8 +17,10 @@ type LikesPopUpType = {
 };
 
 const LikesPopUp = ({ setIsShow, articleLikesData }: LikesPopUpType) => {
+  const LikesPopUpContainerRef = useRef<ElementRef<"div">>(null);
+
   return (
-    <LikesPopUpWrapper>
+    <LikesPopUpWrapper ref={LikesPopUpContainerRef}>
       <LikesPopUpHeader>
         <div></div>
         <IoCloseCircle

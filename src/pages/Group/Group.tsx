@@ -129,9 +129,9 @@ const Group = () => {
               return (
                 <Article
                   key={articles.title}
-                  {...articles}
                   setIsShow={setIsShow}
                   setArticleLikesData={setArticleLikesData}
+                  {...articles}
                 />
               );
             })

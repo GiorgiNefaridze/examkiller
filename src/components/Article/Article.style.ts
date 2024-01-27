@@ -107,16 +107,6 @@ export const Like = styled(AiFillLike)<{ isLiked: boolean }>`
   cursor: pointer;
 `;
 
-// export const See = styled(FaEye)`
-//   font-size: 30px;
-//   background-color: white;
-//   border-radius: 50%;
-//   color: #3081d0;
-//   border: 1px solid #3081d0;
-//   padding: 5px;
-//   cursor: pointer;
-// `;
-
 export const More = styled(HiDotsVertical)`
   font-size: 30px;
   background-color: white;
