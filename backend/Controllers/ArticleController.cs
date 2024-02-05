@@ -32,6 +32,7 @@ public class ArticleController : ControllerBase
                     .Where(u => u.UserId == a.OwnerId)
                     .Select(u => u.Nickname)
                     .FirstOrDefault(),
+                    IsOwner = userId == a.OwnerId,
                     Likes = _context.LikedArticles
                     .Where(la => la.ArticleId == a.ArticleId)
                     .Select(la => new 
@@ -78,4 +79,22 @@ public class ArticleController : ControllerBase
         return Ok(new { Response = "Created" });
     }
 
+    [HttpDelete]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    [ProducesResponseType(StatusCodes.Status400BadRequest)]
+    public async Task<IActionResult> Delete([FromQuery] int userId, [FromQuery] int articleId)
+    {
+        Article? isUserAllowed = await  _context.Articles.Where(a => a.ArticleId == articleId)
+        .FirstOrDefaultAsync(a => a.OwnerId == userId);
+
+        if(isUserAllowed == null)
+        {
+            return BadRequest(new { ErrorMessage = "You dont have a permission to delete this article" });
+        }
+
+        _context.Articles.Remove(isUserAllowed);
+        await _context.SaveChangesAsync();
+
+        return Ok(new { Response = "Deleted" });
+    }
 }
