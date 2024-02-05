@@ -11,8 +11,10 @@ import { FaEye } from "react-icons/fa";
 
 import { type articleLikesDataType } from "../../pages/Group/Group";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
+import { useDeleteArticle } from "../../hooks/useDeleteArticle";
 
 import { SeeMoreWrapper, Option } from "./SeeMore.style";
+import { getCookie } from "../../helpers/cookie";
 
 type SeeMoreType = {
   setIsShow: Dispatch<SetStateAction<boolean>>;
@@ -22,14 +24,18 @@ type SeeMoreType = {
   }[];
   setArticleLikesData: Dispatch<SetStateAction<articleLikesDataType[]>>;
   setIsSeeMoreShow: Dispatch<SetStateAction<boolean>>;
+  articleId: number;
 };
 
 const SeeMore = forwardRef<HTMLDivElement, SeeMoreType>((props, ref) => {
-  const { likes, setArticleLikesData, setIsSeeMoreShow, setIsShow } = props;
+  const { likes, setArticleLikesData, setIsSeeMoreShow, setIsShow, articleId } =
+    props;
 
   const seeMoreRef = useRef<ElementRef<"div">>(null);
 
+  const user = getCookie("user");
   const { outsideClick } = useOutsideClick(seeMoreRef, ref, setIsSeeMoreShow);
+  const { mutateAsync: Delete } = useDeleteArticle(user?.userId, articleId);
 
   useEffect(() => {
     addEventListener("click", outsideClick);
@@ -45,7 +51,8 @@ const SeeMore = forwardRef<HTMLDivElement, SeeMoreType>((props, ref) => {
     setIsSeeMoreShow(false);
   };
 
-  const handleDelete = () => {
+  const handleDelete = async () => {
+    await Delete();
     setIsSeeMoreShow(false);
   };
 

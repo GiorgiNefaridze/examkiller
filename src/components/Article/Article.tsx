@@ -83,6 +83,7 @@ const Article = ({
             setArticleLikesData={setArticleLikesData}
             setIsSeeMoreShow={setIsSeeMoreShow}
             ref={seeMoreDotsRef}
+            articleId={articleId}
           />
         )}
       </IconsWrapper>
