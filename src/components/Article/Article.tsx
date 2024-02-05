@@ -38,6 +38,7 @@ const Article = ({
   setIsShow,
   setArticleLikesData,
   likes,
+  isOwner,
 }: ArticleModelType) => {
   const [isSeeMoreShow, setIsSeeMoreShow] = useState(false);
 
@@ -70,9 +71,11 @@ const Article = ({
       </div>
       <IconsWrapper>
         <Like onClick={handleLike} isLiked={isLiked} />
-        <div ref={seeMoreDotsRef}>
-          <More onClick={handleSeeMore} />
-        </div>
+        {isOwner && (
+          <div ref={seeMoreDotsRef}>
+            <More onClick={handleSeeMore} />
+          </div>
+        )}
         {isSeeMoreShow && (
           <SeeMore
             setIsShow={setIsShow}

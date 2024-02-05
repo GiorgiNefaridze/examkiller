@@ -13,6 +13,7 @@ type ArticleModel = {
     nickname: string;
     email: string;
   }[];
+  isOwner: boolean;
 };
 type ResponseType = { errorMessage: string } | { response: ArticleModel[] };
 
@@ -26,6 +27,7 @@ const articleDtoMapper = (articles: ArticleModel[]) => {
       isLiked: article.isLiked,
       articleId: article.articleId,
       likes: article.likes,
+      isOwner: article.isOwner,
     };
   });
 };
