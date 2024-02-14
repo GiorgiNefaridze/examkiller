@@ -7,7 +7,7 @@ import InputLabel from "../../components/InputLabel/InputLabel";
 import { Toast } from "../../helpers/Toast";
 import { Routes } from "../../../Routes";
 import { emailPattern } from "../../../constants";
-import { useLogin } from "../../hooks/useLogin";
+import { useLogin } from "../../hooks/Auth/useLogin";
 
 import {
   Button,

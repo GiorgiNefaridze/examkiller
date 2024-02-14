@@ -10,7 +10,7 @@ import { Routes } from "../../../Routes";
 import { roles, emailPattern } from "../../../constants";
 import { validateText } from "../../helpers/validateText";
 import { Toast } from "../../helpers/Toast";
-import { useRegister } from "../../hooks/useRegister";
+import { useRegister } from "../../hooks/Auth/useRegister";
 
 import Laptop from "../../assets/laptop.png";
 import {

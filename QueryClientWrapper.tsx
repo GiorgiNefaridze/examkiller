@@ -1,13 +1,24 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { useState } from "react";
+import {
+  QueryClient,
+  QueryClientProvider,
+  type QueryClientConfig,
+} from "@tanstack/react-query";
 
 type QClientWrapperType<T> = (props: { children: T }) => T;
 
-const client = new QueryClient({
-  defaultOptions: { queries: { staleTime: 3 * 1000 } },
-});
+const QueryClientConfig: QueryClientConfig = {
+  defaultOptions: {
+    queries: {
+      staleTime: 1000 * 10,
+    },
+  },
+};
 
 const QueryClientWrapper: QClientWrapperType<JSX.Element> = ({ children }) => {
+  const [client] = useState(() => new QueryClient(QueryClientConfig));
+
   return <QueryClientProvider client={client}>{children}</QueryClientProvider>;
 };
 
-export { QueryClientWrapper, client };
+export { QueryClientWrapper };

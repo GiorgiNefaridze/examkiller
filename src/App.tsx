@@ -5,6 +5,7 @@ import { useLocation } from "react-router-dom";
 import { Routes as RoutePaths } from "../Routes";
 import { ProtectedRoute } from "./helpers/protectedRoute";
 import { getCookie } from "./helpers/cookie";
+
 import Navbar from "./components/Navbar/Navbar";
 
 import { ResetCSS } from "./Index.style";

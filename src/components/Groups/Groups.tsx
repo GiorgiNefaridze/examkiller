@@ -1,7 +1,7 @@
 import { memo } from "react";
 
 import GroupBox from "../GroupBox/GroupBox";
-import { type ResponseRoomModelType } from "../../hooks/useGetRooms";
+import { type ResponseRoomModelType } from "../../hooks/Room/useGetRooms";
 
 import { GroupWrapper } from "./Groups.style";
 

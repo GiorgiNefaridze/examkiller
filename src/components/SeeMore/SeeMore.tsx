@@ -11,7 +11,7 @@ import { FaEye } from "react-icons/fa";
 
 import { type articleLikesDataType } from "../../pages/Group/Group";
 import { useOutsideClick } from "../../hooks/useOutsideClick";
-import { useDeleteArticle } from "../../hooks/useDeleteArticle";
+import { useDeleteArticle } from "../../hooks/Article/useDeleteArticle";
 
 import { SeeMoreWrapper, Option } from "./SeeMore.style";
 import { getCookie } from "../../helpers/cookie";
@@ -34,8 +34,12 @@ const SeeMore = forwardRef<HTMLDivElement, SeeMoreType>((props, ref) => {
   const seeMoreRef = useRef<ElementRef<"div">>(null);
 
   const user = getCookie("user");
+
   const { outsideClick } = useOutsideClick(seeMoreRef, ref, setIsSeeMoreShow);
-  const { mutateAsync: Delete } = useDeleteArticle(user?.userId, articleId);
+  const { mutateAsync: Delete } = useDeleteArticle({
+    userId: user?.userId,
+    articleId,
+  });
 
   useEffect(() => {
     addEventListener("click", outsideClick);

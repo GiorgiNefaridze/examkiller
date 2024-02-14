@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 
-import networkClient from "../../network";
+import networkClient from "../../../network";
+import { ArticleQueryKeys } from "./queries";
 
 type ArticleModel = {
   articleId: number;
@@ -15,7 +16,7 @@ type ArticleModel = {
   }[];
   isOwner: boolean;
 };
-type ResponseType = { errorMessage: string } | { response: ArticleModel[] };
+type ResponseType = { response: ArticleModel[] };
 
 const articleDtoMapper = (articles: ArticleModel[]) => {
   return articles?.map((article: ArticleModel) => {
@@ -32,22 +33,24 @@ const articleDtoMapper = (articles: ArticleModel[]) => {
   });
 };
 
-const useGetArticles = (roomId: number, userId: number) => {
-  const getArticles = async () => {
-    try {
-      const { data } = await networkClient.get<ResponseType>(
-        `/Article?roomId=${roomId}&userId=${userId}`
-      );
+type GetArticlesType = {
+  roomId: number;
+  userId: number;
+};
 
-      return articleDtoMapper(data?.response);
-    } catch (error) {
-      throw new Error(error.response.data.errorMessage);
-    }
-  };
+const getArticles = async ({ roomId, userId }: GetArticlesType) => {
+  const { data } = await networkClient.get<ResponseType>(
+    `/Article?roomId=${roomId}&userId=${userId}`
+  );
 
+  return articleDtoMapper(data?.response);
+};
+
+const useGetArticles = ({ roomId, userId }: GetArticlesType) => {
   return useQuery({
-    queryKey: ["getArticles"],
-    queryFn: getArticles,
+    queryKey: ArticleQueryKeys.all,
+    queryFn: () => getArticles({ roomId, userId }),
+    enabled: Boolean(userId),
   });
 };
 

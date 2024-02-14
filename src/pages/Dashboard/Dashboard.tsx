@@ -3,7 +3,7 @@ import { Toaster } from "sonner";
 
 import Loader from "../../components/Loader/Loader";
 import Groups from "../../components/Groups/Groups";
-import { useGetRooms } from "../../hooks/useGetRooms";
+import { useGetRooms } from "../../hooks/Room/useGetRooms";
 import { getCookie } from "../../helpers/cookie";
 
 import NoContentLoadedImage from "../../assets/nocontent.svg";
@@ -24,7 +24,7 @@ export const NoContentCMP = () => {
 
 const Dashboard = () => {
   const user = getCookie("user");
-  const { data, isLoading } = useGetRooms(user?.userId);
+  const { data, isLoading } = useGetRooms({ userId: user?.userId });
 
   const IsData = useMemo(
     () => (data?.length ? <Groups data={data} /> : <NoContentCMP />),

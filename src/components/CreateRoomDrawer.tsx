@@ -25,8 +25,8 @@ import {
 import { useForm } from "react-hook-form";
 import { Toaster } from "sonner";
 
-import { useCreateRoom } from "../hooks/useCreateRoom";
-import { type RoomModelType } from "../hooks/useCreateRoom";
+import { useCreateRoom } from "../hooks/Room/useCreateRoom";
+import { type RoomModelType } from "../hooks/Room/useCreateRoom";
 import { getCookie } from "../helpers/cookie";
 import { Toast } from "../helpers/Toast";
 

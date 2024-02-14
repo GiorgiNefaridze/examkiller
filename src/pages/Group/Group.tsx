@@ -9,12 +9,15 @@ import LikesPopUp from "../../components/LikesPopUp/LikesPopUp";
 import {
   ArticleModelType,
   useCreateArticle,
-} from "../../hooks/useCreateArticle";
-import { type ArticleModel, useGetArticles } from "../../hooks/useGetArticles";
+} from "../../hooks/Article/useCreateArticle";
+import {
+  type ArticleModel,
+  useGetArticles,
+} from "../../hooks/Article/useGetArticles";
 import {
   leaveGroupDtoType,
   useLeaveFromGroup,
-} from "../../hooks/useLeaveFromGroup";
+} from "../../hooks/Room/useLeaveGroup";
 import { Toast } from "../../helpers/Toast";
 import { NoContentCMP } from "../Dashboard/Dashboard";
 import { getCookie } from "../../helpers/cookie";
@@ -43,12 +46,13 @@ const Group = () => {
 
   const location = useLocation();
   const user = getCookie("user");
+
   const { register, handleSubmit, reset } = useForm<DataType>();
   const { data, error, mutateAsync: CreateArticle } = useCreateArticle();
-  const { data: articles, isLoading } = useGetArticles(
-    location.state?.roomId,
-    user?.userId
-  );
+  const { data: articles, isLoading } = useGetArticles({
+    roomId: location.state?.roomId,
+    userId: user?.userId,
+  });
   const { mutateAsync: LeaveGroup } = useLeaveFromGroup();
 
   useEffect(() => {

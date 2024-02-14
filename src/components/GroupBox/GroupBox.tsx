@@ -2,7 +2,7 @@ import { memo, useEffect } from "react";
 import { IoEnterSharp } from "react-icons/io5";
 import { useNavigate } from "react-router-dom";
 
-import { ResponseRoomModelType } from "../../hooks/useGetRooms";
+import { RoomModelType } from "../../hooks/Room/useGetRooms";
 import { type enrollModelType } from "../../hooks/useEnroll";
 import { useEnroll } from "../../hooks/useEnroll";
 import { getCookie } from "../../helpers/cookie";
@@ -16,7 +16,7 @@ import {
   GroupButtons,
 } from "./GroupBox.style";
 
-const GroupBox = (props: ResponseRoomModelType) => {
+const GroupBox = (props: RoomModelType) => {
   const {
     name,
     description,

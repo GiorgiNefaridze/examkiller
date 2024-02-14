@@ -7,10 +7,10 @@ import {
   ElementRef,
 } from "react";
 
-import { type ArticleModel } from "../../hooks/useGetArticles";
+import { type ArticleModel } from "../../hooks/Article/useGetArticles";
 import { type articleLikesDataType } from "../../pages/Group/Group";
 import { getCookie } from "../../helpers/cookie";
-import { useLikeArticle } from "../../hooks/useLikeArticle";
+import { useLikeArticle } from "../../hooks/Article/useLikeArticle";
 import SeeMore from "../SeeMore/SeeMore";
 
 import { ArticleWrapper, IconsWrapper, Like, More } from "./Article.style";
