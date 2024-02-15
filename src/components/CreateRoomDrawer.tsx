@@ -28,7 +28,7 @@ import { Toaster } from "sonner";
 import { useCreateRoom } from "../hooks/Room/useCreateRoom";
 import { type RoomModelType } from "../hooks/Room/useCreateRoom";
 import { getCookie } from "../helpers/cookie";
-import { Toast } from "../helpers/Toast";
+// import { Toast } from "../helpers/Toast";
 
 type PropType = {
   setIsDrawerOpen: Dispatch<SetStateAction<boolean>>;
@@ -48,11 +48,11 @@ const CreateRoomDrawer = ({ setIsDrawerOpen }: PropType) => {
 
   const response = data?.response;
 
-  useEffect(() => {
-    if (error?.message || response) {
-      Toast(error?.message, response);
-    }
-  }, [error?.message, response]);
+  // useEffect(() => {
+  //   if (error?.message || response) {
+  //     Toast(error?.message, response);
+  //   }
+  // }, [error?.message, response]);
 
   useEffect(() => {
     onOpen();

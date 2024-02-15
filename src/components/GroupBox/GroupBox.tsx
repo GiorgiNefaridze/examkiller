@@ -6,15 +6,15 @@ import { RoomModelType } from "../../hooks/Room/useGetRooms";
 import { type enrollModelType } from "../../hooks/useEnroll";
 import { useEnroll } from "../../hooks/useEnroll";
 import { getCookie } from "../../helpers/cookie";
-import { Toast } from "../../helpers/Toast";
+import { Toast } from "../Toast";
 import { Routes } from "../../../Routes";
 
-import {
-  GroupContainer,
-  Button,
-  GroupContent,
-  GroupButtons,
-} from "./GroupBox.style";
+// import {
+//   GroupContainer,
+//   Button,
+//   GroupContent,
+//   GroupButtons,
+// } from "./GroupBox.style";
 
 const GroupBox = (props: RoomModelType) => {
   const {
@@ -46,31 +46,32 @@ const GroupBox = (props: RoomModelType) => {
   };
 
   return (
-    <GroupContainer title={name}>
-      <GroupContent isEnrolled={isJoined}>
-        <h1>Title: {name}</h1>
-        <h1>Description: {description}</h1>
-        <h1>Lead: {nickname}</h1>
-      </GroupContent>
-      <GroupButtons>
-        {isJoined ? (
-          <Button
-            onClick={() =>
-              navigate(Routes.Group.path, {
-                state: { ...props, userId: user?.userId },
-              })
-            }
-          >
-            See more...
-          </Button>
-        ) : (
-          <Button onClick={handleEnroll}>
-            Enroll
-            <IoEnterSharp />
-          </Button>
-        )}
-      </GroupButtons>
-    </GroupContainer>
+    // <GroupContainer title={name}>
+    //   <GroupContent isEnrolled={isJoined}>
+    //     <h1>Title: {name}</h1>
+    //     <h1>Description: {description}</h1>
+    //     <h1>Lead: {nickname}</h1>
+    //   </GroupContent>
+    //   <GroupButtons>
+    //     {isJoined ? (
+    //       <Button
+    //         onClick={() =>
+    //           navigate(Routes.Group.path, {
+    //             state: { ...props, userId: user?.userId },
+    //           })
+    //         }
+    //       >
+    //         See more...
+    //       </Button>
+    //     ) : (
+    //       <Button onClick={handleEnroll}>
+    //         Enroll
+    //         <IoEnterSharp />
+    //       </Button>
+    //     )}
+    //   </GroupButtons>
+    // </GroupContainer>
+    null
   );
 };
 

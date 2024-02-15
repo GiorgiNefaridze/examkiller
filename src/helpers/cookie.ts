@@ -1,6 +1,6 @@
 import { type UserType } from "../hooks/Auth/useLogin";
 
-const setCookie = (name: string, payload: any) => {
+const setCookie = (name: string, payload: unknown) => {
   const serializedObject = JSON.stringify(payload);
 
   document.cookie = `${name}=${serializedObject}`;

@@ -1,5 +1,5 @@
 import Lead from "./src/assets/Professor-pana.png";
-import Student from "./src/assets/Student stress-rafiki.png";
+import Student from "./src/assets/student.png";
 
 type RoleOptionType = "Student" | "Lead";
 

@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import CreateRoomDrawer from "../CreateRoomDrawer";
+// import CreateRoomDrawer from "../CreateRoomDrawer";
 import { deleteCookie, getCookie } from "../../helpers/cookie";
 
 import { Routes } from "../../../Routes";
@@ -28,14 +28,15 @@ const Navbar = () => {
   };
 
   return (
-    <NavWrapper>
-      <img src={Logo} onClick={() => navigate(Routes.Dashboard.path)} />
-      <ButtonGroup>
-        {isLead && <Button onClick={handleOpen}>Create Room</Button>}
-        <Button onClick={handleLogout}>Logout</Button>
-      </ButtonGroup>
-      {isDrawerOpen && <CreateRoomDrawer setIsDrawerOpen={setIsDrawerOpen} />}
-    </NavWrapper>
+    null
+    // <NavWrapper>
+    //   <img src={Logo} onClick={() => navigate(Routes.Dashboard.path)} />
+    //   <ButtonGroup>
+    //     {isLead && <Button onClick={handleOpen}>Create Room</Button>}
+    //     <Button onClick={handleLogout}>Logout</Button>
+    //   </ButtonGroup>
+    //   {/* {isDrawerOpen && <CreateRoomDrawer setIsDrawerOpen={setIsDrawerOpen} />} */}
+    // </NavWrapper>
   );
 };
 

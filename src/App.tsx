@@ -8,8 +8,6 @@ import { getCookie } from "./helpers/cookie";
 
 import Navbar from "./components/Navbar/Navbar";
 
-import { ResetCSS } from "./Index.style";
-
 const App = () => {
   const [isShowNavbar, setIsShowNavbar] = useState<boolean>(false);
 
@@ -22,8 +20,7 @@ const App = () => {
   }, [pathname]);
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", height: "100vh" }}>
-      <ResetCSS />
+    <>
       {isShowNavbar && <Navbar />}
       <Routes>
         {Object.values(RoutePaths)?.map(({ path, component }, idx) => {
@@ -40,7 +37,7 @@ const App = () => {
           );
         })}
       </Routes>
-    </div>
+    </>
   );
 };
 

@@ -14,21 +14,18 @@ import {
   type ArticleModel,
   useGetArticles,
 } from "../../hooks/Article/useGetArticles";
-import {
-  leaveGroupDtoType,
-  useLeaveFromGroup,
-} from "../../hooks/Room/useLeaveGroup";
-import { Toast } from "../../helpers/Toast";
+import { useLeaveFromGroup } from "../../hooks/Room/useLeaveGroup";
+import { Toast } from "../../components/Toast";
 import { NoContentCMP } from "../Dashboard/Dashboard";
 import { getCookie } from "../../helpers/cookie";
 
-import { Button } from "../Register/Register.style";
-import { Articles, GroupInput, GroupWrapper } from "./Group.style";
-import {
-  GroupInfo,
-  GroupContent,
-  GroupInfoDetailsContainer,
-} from "../../components/Article/Article.style";
+// import { Button } from "../Register/Register.style";
+// import { Articles, GroupInput, GroupWrapper } from "./Group.style";
+// import {
+//   GroupInfo,
+//   GroupContent,
+//   GroupInfoDetailsContainer,
+// } from "../../components/Article/Article.style";
 
 type Field = "title" | "content";
 type DataType = Record<Field, string>;
@@ -55,11 +52,11 @@ const Group = () => {
   });
   const { mutateAsync: LeaveGroup } = useLeaveFromGroup();
 
-  useEffect(() => {
-    if (error?.message || data) {
-      Toast(error?.message, data);
-    }
-  }, [error?.message, data]);
+  // useEffect(() => {
+  //   if (error?.message || data) {
+  //     Toast(error?.message, data);
+  //   }
+  // }, [error?.message, data]);
 
   const getFormFields = (field: Field) => ({
     ...register(field),
@@ -87,65 +84,66 @@ const Group = () => {
   const leaveGroupDto = {
     roomId: location?.state?.roomId,
     userId: user?.userId,
-  } as leaveGroupDtoType;
+  };
 
   return (
-    <GroupWrapper>
-      {isShow && (
-        <LikesPopUp setIsShow={setIsShow} articleLikesData={articleLikesData} />
-      )}
-      <GroupContent>
-        <GroupInfo>
-          {Object.entries(GroupInforDetails).map(([key, val], idx: number) => {
-            return (
-              <GroupInfoDetailsContainer key={idx}>
-                <p>{key}</p>
-                <p>{val}</p>
-              </GroupInfoDetailsContainer>
-            );
-          })}
-          <form onSubmit={handleSubmit(submitForm)}>
-            <GroupInput
-              type="text"
-              placeholder="Content title..."
-              {...getFormFields("title")}
-            />
-            <GroupInput
-              type="text"
-              placeholder="Type content here..."
-              {...getFormFields("content")}
-            />
-            <Button type="submit">Add</Button>
-            <Button
-              type="button"
-              id="leave"
-              onClick={async () => await LeaveGroup(leaveGroupDto)}
-            >
-              Leave
-            </Button>
-          </form>
-        </GroupInfo>
-        <Articles>
-          {isLoading ? (
-            <Loader />
-          ) : articles?.length ? (
-            articles?.map((articles: ArticleModel) => {
-              return (
-                <Article
-                  key={articles.title}
-                  setIsShow={setIsShow}
-                  setArticleLikesData={setArticleLikesData}
-                  {...articles}
-                />
-              );
-            })
-          ) : (
-            <NoContentCMP />
-          )}
-        </Articles>
-        <Toaster richColors closeButton />
-      </GroupContent>
-    </GroupWrapper>
+    // <GroupWrapper>
+    //   {isShow && (
+    //     <LikesPopUp setIsShow={setIsShow} articleLikesData={articleLikesData} />
+    //   )}
+    //   <GroupContent>
+    //     <GroupInfo>
+    //       {Object.entries(GroupInforDetails).map(([key, val], idx: number) => {
+    //         return (
+    //           <GroupInfoDetailsContainer key={idx}>
+    //             <p>{key}</p>
+    //             <p>{val}</p>
+    //           </GroupInfoDetailsContainer>
+    //         );
+    //       })}
+    //       <form onSubmit={handleSubmit(submitForm)}>
+    //         <GroupInput
+    //           type="text"
+    //           placeholder="Content title..."
+    //           {...getFormFields("title")}
+    //         />
+    //         <GroupInput
+    //           type="text"
+    //           placeholder="Type content here..."
+    //           {...getFormFields("content")}
+    //         />
+    //         <Button type="submit">Add</Button>
+    //         <Button
+    //           type="button"
+    //           id="leave"
+    //           onClick={async () => await LeaveGroup(leaveGroupDto)}
+    //         >
+    //           Leave
+    //         </Button>
+    //       </form>
+    //     </GroupInfo>
+    //     <Articles>
+    //       {isLoading ? (
+    //         <Loader />
+    //       ) : articles?.length ? (
+    //         articles?.map((articles: ArticleModel) => {
+    //           return (
+    //             <Article
+    //               key={articles.title}
+    //               setIsShow={setIsShow}
+    //               setArticleLikesData={setArticleLikesData}
+    //               {...articles}
+    //             />
+    //           );
+    //         })
+    //       ) : (
+    //         <NoContentCMP />
+    //       )}
+    //     </Articles>
+    //     <Toaster richColors closeButton />
+    //   </GroupContent>
+    // </GroupWrapper>
+    null
   );
 };
 
