@@ -46,7 +46,7 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create([FromBody] User user)
     {
-        bool isExists = await _context.Users.AnyAsync(u => u.UserId == user.UserId);
+        bool isExists = await _context.Users.AnyAsync(u => u.Email == user.Email);
 
         if(isExists) 
         {
