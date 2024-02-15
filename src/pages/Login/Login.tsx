@@ -5,7 +5,7 @@ import { Button } from "flowbite-react";
 
 import InputLabel from "../../components/InputLabel/InputLabel";
 
-import { ToastAlert } from "../../components/Toast";
+import { ToastAlert } from "../../components/Toast/Toast";
 import { Routes } from "../../../Routes";
 import { emailPattern } from "../../../constants";
 import { useLogin } from "../../hooks/Auth/useLogin";

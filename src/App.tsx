@@ -20,7 +20,7 @@ const App = () => {
   }, [pathname]);
 
   return (
-    <>
+    <div className="w-full h-[100vh] overflow-hidden">
       {isShowNavbar && <Navbar />}
       <Routes>
         {Object.values(RoutePaths)?.map(({ path, component }, idx) => {
@@ -37,7 +37,7 @@ const App = () => {
           );
         })}
       </Routes>
-    </>
+    </div>
   );
 };
 

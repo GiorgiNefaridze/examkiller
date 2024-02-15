@@ -20,4 +20,6 @@ const emailPattern = {
   message: "invalid email address",
 };
 
-export { roles, emailPattern, type RoleOptionType, type RoleType };
+const examTypes = ["Midterm", "Quiz"];
+
+export { roles, emailPattern, type RoleOptionType, type RoleType, examTypes };

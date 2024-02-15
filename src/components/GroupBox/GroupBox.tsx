@@ -6,7 +6,7 @@ import { RoomModelType } from "../../hooks/Room/useGetRooms";
 import { type enrollModelType } from "../../hooks/useEnroll";
 import { useEnroll } from "../../hooks/useEnroll";
 import { getCookie } from "../../helpers/cookie";
-import { Toast } from "../Toast";
+import { Toast } from "../Toast/Toast";
 import { Routes } from "../../../Routes";
 
 // import {

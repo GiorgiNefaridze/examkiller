@@ -15,7 +15,7 @@ import {
   useGetArticles,
 } from "../../hooks/Article/useGetArticles";
 import { useLeaveFromGroup } from "../../hooks/Room/useLeaveGroup";
-import { Toast } from "../../components/Toast";
+import { Toast } from "../../components/Toast/Toast";
 import { NoContentCMP } from "../Dashboard/Dashboard";
 import { getCookie } from "../../helpers/cookie";
 

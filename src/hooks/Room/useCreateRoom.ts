@@ -1,4 +1,5 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { isAxiosError } from "axios";
 
 import networkClient from "../../../network";
 import { ResponseType } from "../Auth/useRegister";
@@ -21,12 +22,18 @@ const DTOMapper = (request) => {
 };
 
 const createRoom = async (roomModel: RoomModelType) => {
-  const { data } = await networkClient.post<ResponseType>(
-    "Room",
-    DTOMapper(roomModel)
-  );
+  try {
+    const { data } = await networkClient.post<ResponseType>(
+      "Room",
+      DTOMapper(roomModel)
+    );
 
-  return data;
+    return data;
+  } catch (error) {
+    if (isAxiosError(error)) {
+      throw new Error(error.response?.data?.errorMessage);
+    }
+  }
 };
 
 const useCreateRoom = () => {
