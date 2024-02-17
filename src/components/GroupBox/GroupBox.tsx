@@ -1,39 +1,43 @@
-import { memo, useEffect } from "react";
-import { IoEnterSharp } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { type Dispatch, type SetStateAction, memo } from "react";
+import { Badge, Button, Card, Spinner } from "flowbite-react";
+
+import BadgeComponent from "../Badge/Badge";
 
 import { RoomModelType } from "../../hooks/Room/useGetRooms";
 import { type enrollModelType } from "../../hooks/useEnroll";
 import { useEnroll } from "../../hooks/useEnroll";
+import { cutText } from "../../helpers/textCutter";
 import { getCookie } from "../../helpers/cookie";
-import { Toast } from "../Toast/Toast";
-import { Routes } from "../../../Routes";
 
-// import {
-//   GroupContainer,
-//   Button,
-//   GroupContent,
-//   GroupButtons,
-// } from "./GroupBox.style";
+type GroupBoxtype = RoomModelType & {
+  setRoomData: Dispatch<SetStateAction<RoomModelType>>;
+};
 
-const GroupBox = (props: RoomModelType) => {
+const GroupBox = (props: GroupBoxtype) => {
   const {
     name,
     description,
     roomId,
     isJoined,
+    type,
     owner: { nickname },
+    setRoomData,
   } = props;
 
-  const { data, error, mutateAsync: Enroll } = useEnroll();
-  const user = getCookie("user");
-  const navigate = useNavigate();
+  const roomData = isJoined
+    ? {
+        name,
+        description,
+        roomId,
+        isJoined,
+        type,
+        owner: { nickname },
+      }
+    : {};
 
-  useEffect(() => {
-    if (data || error?.message) {
-      Toast(error?.message, data);
-    }
-  }, [data, error?.message]);
+  const { mutateAsync: Enroll, isPending } = useEnroll();
+
+  const user = getCookie("user");
 
   const handleEnroll = async () => {
     if (user?.userId) {
@@ -46,32 +50,41 @@ const GroupBox = (props: RoomModelType) => {
   };
 
   return (
-    // <GroupContainer title={name}>
-    //   <GroupContent isEnrolled={isJoined}>
-    //     <h1>Title: {name}</h1>
-    //     <h1>Description: {description}</h1>
-    //     <h1>Lead: {nickname}</h1>
-    //   </GroupContent>
-    //   <GroupButtons>
-    //     {isJoined ? (
-    //       <Button
-    //         onClick={() =>
-    //           navigate(Routes.Group.path, {
-    //             state: { ...props, userId: user?.userId },
-    //           })
-    //         }
-    //       >
-    //         See more...
-    //       </Button>
-    //     ) : (
-    //       <Button onClick={handleEnroll}>
-    //         Enroll
-    //         <IoEnterSharp />
-    //       </Button>
-    //     )}
-    //   </GroupButtons>
-    // </GroupContainer>
-    null
+    <Card
+      className="h-[23%] w-[90%] max-md:h-[50%] px-3 relative cursor-pointer"
+      style={{
+        filter: isJoined ? "none" : "blur(1px)",
+      }}
+      onClick={() => setRoomData(roomData)}
+    >
+      <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+        {cutText(name, 15)}
+      </h5>
+      <p className="font-normal text-gray-700 dark:text-gray-400">
+        {cutText(description, 30)}
+      </p>
+      <div className="flex justify-between items-center">
+        <Badge color="gray" className="w-1/2 rounded-md">
+          Created by {cutText(nickname, 7)}
+        </Badge>
+        <BadgeComponent type={type} />
+      </div>
+      {isJoined ? (
+        <div className="w-full bg-transparent absolute flex items-center justify-center top-0 bottom-0 left-0 right-0">
+          <Button className="w-1/3">Details</Button>
+        </div>
+      ) : (
+        <div className="w-full bg-transparent absolute flex items-center justify-center top-0 bottom-0 left-0 right-0">
+          <Button className="w-1/3" onClick={handleEnroll}>
+            {isPending ? (
+              <Spinner aria-label="Default status example" size={"sm"} />
+            ) : (
+              "Enroll"
+            )}
+          </Button>
+        </div>
+      )}
+    </Card>
   );
 };
 

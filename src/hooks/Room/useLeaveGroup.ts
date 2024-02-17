@@ -1,5 +1,4 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useNavigate } from "react-router-dom";
 
 import networkClient from "../../../network";
 import { RoomQueryKeys } from "./queries";
@@ -19,16 +18,12 @@ const leaveGroup = async ({ roomId, userId }: LeaveGroupType) => {
 };
 
 const useLeaveFromGroup = () => {
-  const navigate = useNavigate();
   const client = useQueryClient();
 
   return useMutation({
     mutationKey: ["leaveFromGroup"],
     mutationFn: leaveGroup,
-    onSuccess(data) {
-      if (data.status == 200) {
-        navigate(Routes.Dashboard.path);
-      }
+    onSuccess() {
       return client.invalidateQueries({ queryKey: RoomQueryKeys.all });
     },
   });

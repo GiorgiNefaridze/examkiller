@@ -48,7 +48,7 @@ const getArticles = async ({ roomId, userId }: GetArticlesType) => {
 
 const useGetArticles = ({ roomId, userId }: GetArticlesType) => {
   return useQuery({
-    queryKey: ArticleQueryKeys.all,
+    queryKey: [...ArticleQueryKeys.all, roomId],
     queryFn: () => getArticles({ roomId, userId }),
     enabled: Boolean(userId),
   });

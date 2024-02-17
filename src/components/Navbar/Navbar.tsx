@@ -7,7 +7,8 @@ import { IoMdMenu } from "react-icons/io";
 
 import Drawer from "../Drawer/Drawer";
 
-import { deleteCookie, getCookie } from "../../helpers/cookie";
+import { useLogout } from "../../hooks/Auth/useLogout";
+import { getCookie } from "../../helpers/cookie";
 import { Routes } from "../../../Routes";
 
 import Logo from "../../assets/examkillerlogo.png";
@@ -25,11 +26,6 @@ const Navbar = () => {
     setOpenModal(true);
   };
 
-  const handleLogout = () => {
-    deleteCookie("user");
-    navigate(Routes.Login.path);
-  };
-
   return (
     <Nav className="w-full flex items-center justify-between relative">
       <Nav.Brand
@@ -41,12 +37,12 @@ const Navbar = () => {
 
       {/* Menu */}
       <div
-        className="cursor-pointer rounded-xl p-2 border-blue-400 border-2 hidden max-md:block"
+        className="cursor-pointer rounded-xl p-2 z-10 border-blue-400 border-2 hidden max-md:block"
         onClick={() => setIsMenuOpen((prev) => !prev)}
       >
         <IoMdMenu className="text-blue-400" size={20} />
         {isMenuOpen && (
-          <div className="w-full flex-1 absolute !h-[90vh] bg-white px-5 !top-28 !left-0 flex flex-col gap-y-3">
+          <div className="w-full flex-1 absolute !h-[100vh] bg-white p-5 px-5 !top-20 !left-0 flex flex-col gap-y-3">
             <Button
               className="flex p-[5px] items-center bg-blue-500 hover:!bg-blue-700 !ring-0"
               onClick={handleOpen}
@@ -56,7 +52,7 @@ const Navbar = () => {
             </Button>
             <Button
               className="flex p-[5px] items-center bg-blue-500 hover:!bg-blue-700 !ring-0"
-              onClick={handleLogout}
+              onClick={useLogout}
             >
               <CgLogOut />
               <span className="pl-2">Logout</span>
@@ -77,7 +73,7 @@ const Navbar = () => {
         )}
         <Button
           className="flex items-center bg-blue-500 hover:!bg-blue-700 !ring-0"
-          onClick={handleLogout}
+          onClick={useLogout}
         >
           <CgLogOut />
           <span className="pl-2">Logout</span>

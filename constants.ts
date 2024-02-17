@@ -21,5 +21,18 @@ const emailPattern = {
 };
 
 const examTypes = ["Midterm", "Quiz"];
+const examTypeBadgeColors = ["failure", "info"];
 
-export { roles, emailPattern, type RoleOptionType, type RoleType, examTypes };
+const badgeTypes = examTypes.map((type, idx) => ({
+  key: type,
+  color: examTypeBadgeColors[idx],
+}));
+
+export {
+  roles,
+  emailPattern,
+  type RoleOptionType,
+  type RoleType,
+  examTypes,
+  badgeTypes,
+};
