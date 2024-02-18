@@ -1,4 +1,10 @@
-import { type Dispatch, type SetStateAction, memo } from "react";
+import {
+  type Dispatch,
+  type SetStateAction,
+  memo,
+  useEffect,
+  useState,
+} from "react";
 import { Badge, Button, Card, Spinner } from "flowbite-react";
 
 import BadgeComponent from "../Badge/Badge";
@@ -11,9 +17,13 @@ import { getCookie } from "../../helpers/cookie";
 
 type GroupBoxtype = RoomModelType & {
   setRoomData: Dispatch<SetStateAction<RoomModelType>>;
+  targetRoomId: number;
+  setTargetRoomId: Dispatch<SetStateAction<number>>;
 };
 
 const GroupBox = (props: GroupBoxtype) => {
+  const [isFocused, setIsFocused] = useState<boolean>(false);
+
   const {
     name,
     description,
@@ -22,7 +32,13 @@ const GroupBox = (props: GroupBoxtype) => {
     type,
     owner: { nickname },
     setRoomData,
+    setTargetRoomId,
+    targetRoomId,
   } = props;
+
+  useEffect(() => {
+    setIsFocused(targetRoomId === roomId);
+  }, [targetRoomId]);
 
   const roomData = {
     name,
@@ -52,10 +68,12 @@ const GroupBox = (props: GroupBoxtype) => {
       className="h-[23%] w-[90%] max-md:h-[50%] px-3 relative cursor-pointer"
       style={{
         filter: isJoined ? "none" : "blur(1px)",
+        border: isFocused ? "2px solid rgba(63,131,248,0.5)" : "none",
       }}
       onClick={() => {
         if (isJoined) {
           setRoomData(roomData);
+          setTargetRoomId(roomId);
         }
       }}
     >

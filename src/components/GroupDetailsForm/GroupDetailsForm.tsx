@@ -44,10 +44,10 @@ const GroupDetailsForm = ({ ownerId, roomId }: GroupDetailsFormType) => {
   return (
     <div className="w-full h-[30%] max-md:h-[40%] flex flex-col gap-y-5 overflow-hidden">
       <form
-        className="w-full bg-white h-full rounded-lg px-4 pt-2"
+        className="w-full bg-white max-md:flex max-md:items-center max-md:justify-center h-full rounded-lg px-4 pt-2"
         onSubmit={submitForm}
       >
-        <div className="flex flex-wrap -mx-3 mb-6">
+        <div className="flex flex-col max-md:w-full -mx-3 mb-6">
           <div className="w-full md:w-full px-3 mb-2 mt-2">
             <TextInput
               type="text"

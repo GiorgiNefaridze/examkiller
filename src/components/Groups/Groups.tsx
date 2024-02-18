@@ -13,6 +13,7 @@ import { type RoomModelType } from "../../hooks/Room/useGetRooms";
 
 const Groups = () => {
   const [roomData, setRoomData] = useState<RoomModelType>({} as RoomModelType);
+  const [targetRoomId, setTargetRoomId] = useState<number>(0); //0 just default
 
   const user = getCookie("user");
   const userId = user?.userId;
@@ -51,6 +52,8 @@ const Groups = () => {
               <GroupBox
                 key={group?.roomId}
                 setRoomData={setRoomData}
+                targetRoomId={targetRoomId}
+                setTargetRoomId={setTargetRoomId}
                 {...group}
               />
             ))}
