@@ -24,16 +24,14 @@ const GroupBox = (props: GroupBoxtype) => {
     setRoomData,
   } = props;
 
-  const roomData = isJoined
-    ? {
-        name,
-        description,
-        roomId,
-        isJoined,
-        type,
-        owner: { nickname },
-      }
-    : {};
+  const roomData = {
+    name,
+    description,
+    roomId,
+    isJoined,
+    type,
+    owner: { nickname },
+  };
 
   const { mutateAsync: Enroll, isPending } = useEnroll();
 
@@ -55,7 +53,11 @@ const GroupBox = (props: GroupBoxtype) => {
       style={{
         filter: isJoined ? "none" : "blur(1px)",
       }}
-      onClick={() => setRoomData(roomData)}
+      onClick={() => {
+        if (isJoined) {
+          setRoomData(roomData);
+        }
+      }}
     >
       <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
         {cutText(name, 15)}

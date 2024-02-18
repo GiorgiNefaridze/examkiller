@@ -7,6 +7,7 @@ import {
   TextInput,
   Select,
   Blockquote,
+  Spinner,
 } from "flowbite-react";
 import { useForm } from "react-hook-form";
 
@@ -22,10 +23,10 @@ type DrawerType = {
 type CreateRoomFields = "name" | "description" | "type" | "ownerId";
 
 const Drawer = ({ openModal, setOpenModal }: DrawerType) => {
-  const { data, error, mutateAsync: Create } = useCreateRoom();
+  const { data, error, mutateAsync: Create, isPending } = useCreateRoom();
   const user = getCookie("user");
 
-  const { register, handleSubmit } = useForm({
+  const { register, handleSubmit, reset } = useForm({
     defaultValues: { ownerId: user?.userId },
   });
 
@@ -33,6 +34,7 @@ const Drawer = ({ openModal, setOpenModal }: DrawerType) => {
 
   const submit = handleSubmit(async (data) => {
     await Create(data);
+    reset();
   });
 
   return (
@@ -95,8 +97,13 @@ const Drawer = ({ openModal, setOpenModal }: DrawerType) => {
               <Button
                 className="bg-blue-500 px-3 hover:!bg-blue-700 !ring-0"
                 onClick={submit}
+                disabled={isPending}
               >
-                Submit
+                {isPending ? (
+                  <Spinner aria-label="Default status example" size={"sm"} />
+                ) : (
+                  "Submit"
+                )}
               </Button>
               <Button
                 className="bg-blue-500 px-3 hover:!bg-blue-700 !ring-0"
