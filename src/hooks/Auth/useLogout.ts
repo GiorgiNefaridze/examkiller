@@ -6,8 +6,12 @@ import { Routes } from "../../../Routes";
 const useLogout = () => {
   const navigate = useNavigate();
 
-  deleteCookie("user");
-  navigate(Routes.Login.path);
+  const logout = () => {
+    deleteCookie("user");
+    navigate(Routes.Login.path);
+  };
+
+  return { logout };
 };
 
 export { useLogout };

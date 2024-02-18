@@ -1,10 +1,9 @@
-import { CgSmileSad } from "react-icons/cg";
+import NoContentImg from "../../assets/nocontent.svg";
 
 const NoContent = () => {
   return (
-    <div className="w-full h-full flex items-center justify-center gap-5">
-      <h1 className="text-2xl font-bold">Nothing is here</h1>
-      <CgSmileSad size={40} />
+    <div className="w-full h-full flex flex-col items-center justify-center gap-5">
+      <img src={NoContentImg} className="w-1/2" />
     </div>
   );
 };

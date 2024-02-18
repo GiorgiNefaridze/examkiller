@@ -35,6 +35,7 @@ const generateLikersAvatars = (likes: LikesType) => {
       <>
         {idx < visibleLikes ? (
           <Avatar
+            key={idx}
             placeholderInitials={like?.nickname[0]?.toUpperCase()}
             title={like?.nickname}
             className="cursor-pointer"
@@ -43,7 +44,7 @@ const generateLikersAvatars = (likes: LikesType) => {
             bordered
           />
         ) : (
-          <Avatar.Counter total={likes?.length - visibleLikes} />
+          <Avatar.Counter key={idx} total={likes?.length - visibleLikes} />
         )}
       </>
     );

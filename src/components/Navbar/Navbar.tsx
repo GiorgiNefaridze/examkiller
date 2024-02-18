@@ -18,7 +18,9 @@ const Navbar = () => {
   const [openModal, setOpenModal] = useState<boolean>(false);
 
   const user = getCookie("user");
+
   const navigate = useNavigate();
+  const { logout } = useLogout();
 
   const isLead = user?.role === "Lead";
 
@@ -73,7 +75,7 @@ const Navbar = () => {
         )}
         <Button
           className="flex items-center bg-blue-500 hover:!bg-blue-700 !ring-0"
-          onClick={useLogout}
+          onClick={logout}
         >
           <CgLogOut />
           <span className="pl-2">Logout</span>
