@@ -41,6 +41,7 @@ const Groups = () => {
               onClick={async () => {
                 await LeaveRoom({ roomId: roomData?.roomId, userId });
                 setRoomData({});
+                setTargetRoomId(0);
               }}
             >
               {isRoomSelected && <TbLogout size={15} color="blue" />}

@@ -65,7 +65,7 @@ const GroupBox = (props: GroupBoxtype) => {
 
   return (
     <Card
-      className="h-[23%] w-[90%] max-md:h-[50%] px-3 relative cursor-pointer"
+      className="h-[23%] w-[90%] max-md:h-[200px] px-3 relative cursor-pointer"
       style={{
         filter: isJoined ? "none" : "blur(1px)",
         border: isFocused ? "2px solid rgba(63,131,248,0.5)" : "none",

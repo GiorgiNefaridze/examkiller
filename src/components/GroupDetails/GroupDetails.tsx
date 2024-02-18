@@ -95,8 +95,8 @@ const GroupDetails = ({ roomId }: GroupDetailsType) => {
                           <Timeline.Time>
                             Written by {owner} / {date}
                           </Timeline.Time>
-                          <Timeline.Title>{cutText(title, 20)}</Timeline.Title>
-                          <Timeline.Body>{cutText(content, 20)}</Timeline.Body>
+                          <Timeline.Title>{cutText(title, 30)}</Timeline.Title>
+                          <Timeline.Body>{cutText(content, 35)}</Timeline.Body>
                           <Timeline.Body>
                             <div className="w-full flex">
                               <Avatar.Group>
