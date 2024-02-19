@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { Button } from "flowbite-react";
+import { Button, Spinner } from "flowbite-react";
 
 import InputLabel from "../../components/InputLabel/InputLabel";
 import Role from "../../components/Role/Role";
@@ -20,7 +20,7 @@ const Register = () => {
   const [step, setStep] = useState<1 | 2>(1);
   const [role, setRole] = useState<string>(roles[0].name); //Default role = Student
 
-  const { data, error, mutateAsync: SignUp } = useRegister();
+  const { data, error, mutateAsync: SignUp, isPending } = useRegister();
 
   const {
     register,
@@ -130,7 +130,11 @@ const Register = () => {
         )}
 
         <Button type="submit" className="bg-blue-500 hover:!bg-blue-700">
-          {BUTTON_STEPS[step - 1]}
+          {isPending ? (
+            <Spinner aria-label="Default status example" size={"sm"} />
+          ) : (
+            BUTTON_STEPS[step - 1]
+          )}
         </Button>
       </form>
 

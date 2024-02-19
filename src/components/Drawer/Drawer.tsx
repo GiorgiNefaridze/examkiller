@@ -26,7 +26,7 @@ const Drawer = ({ openModal, setOpenModal }: DrawerType) => {
   const { data, error, mutateAsync: Create, isPending } = useCreateRoom();
   const user = getCookie("user");
 
-  const { register, handleSubmit, reset } = useForm({
+  const { register, handleSubmit } = useForm({
     defaultValues: { ownerId: user?.userId },
   });
 
@@ -34,7 +34,7 @@ const Drawer = ({ openModal, setOpenModal }: DrawerType) => {
 
   const submit = handleSubmit(async (data) => {
     await Create(data);
-    reset();
+    setOpenModal(false);
   });
 
   return (

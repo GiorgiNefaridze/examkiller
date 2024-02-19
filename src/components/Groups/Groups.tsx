@@ -1,6 +1,7 @@
 import { memo, useState } from "react";
 import { FaHouse } from "react-icons/fa6";
 import { TbLogout } from "react-icons/tb";
+import { useAutoAnimate } from "@formkit/auto-animate/react";
 
 import GroupBox from "../GroupBox/GroupBox";
 import Loader from "../Loader/Loader";
@@ -14,6 +15,7 @@ import { type RoomModelType } from "../../hooks/Room/useGetRooms";
 const Groups = () => {
   const [roomData, setRoomData] = useState<RoomModelType>({} as RoomModelType);
   const [targetRoomId, setTargetRoomId] = useState<number>(0); //0 just default
+  const [animationParent] = useAutoAnimate();
 
   const user = getCookie("user");
   const userId = user?.userId;
@@ -48,16 +50,21 @@ const Groups = () => {
             </div>
             <GroupDetails {...roomData} />
           </div>
-          <div className="w-[25%] max-lg:w-full h-full max-md:h-[100vh] flex bg-gray-100 rounded-md py-5 scrollbar-hide flex-col justify-start gap-y-6 items-center overflow-y-auto">
-            {data?.map((group: RoomModelType) => (
-              <GroupBox
-                key={group?.roomId}
-                setRoomData={setRoomData}
-                targetRoomId={targetRoomId}
-                setTargetRoomId={setTargetRoomId}
-                {...group}
-              />
-            ))}
+          <div
+            ref={animationParent}
+            className="w-[25%] max-lg:w-full h-full max-md:h-[100vh] flex bg-gray-100 rounded-md py-5 scrollbar-hide flex-col justify-start gap-y-6 items-center overflow-y-auto"
+          >
+            {data
+              ?.sort((a, b) => b.roomId - a.roomId)
+              ?.map((group: RoomModelType) => (
+                <GroupBox
+                  key={group?.roomId}
+                  setRoomData={setRoomData}
+                  targetRoomId={targetRoomId}
+                  setTargetRoomId={setTargetRoomId}
+                  {...group}
+                />
+              ))}
           </div>
         </div>
       )}

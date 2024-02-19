@@ -1,7 +1,7 @@
 import { memo } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { Button } from "flowbite-react";
+import { Button, Spinner } from "flowbite-react";
 
 import InputLabel from "../../components/InputLabel/InputLabel";
 
@@ -21,7 +21,7 @@ const Login = () => {
   } = useForm<LoginType>();
 
   const navigate = useNavigate();
-  const { error, mutateAsync: SignIn } = useLogin();
+  const { error, mutateAsync: SignIn, isPending } = useLogin();
 
   const getFormFields = (field: Field) => ({
     ...register(field, {
@@ -75,7 +75,11 @@ const Login = () => {
           error={errors}
         />
         <Button type="submit" className="bg-blue-500 hover:!bg-blue-700">
-          Submit
+          {isPending ? (
+            <Spinner aria-label="Default status example" size={"sm"} />
+          ) : (
+            "Submit"
+          )}
         </Button>
       </form>
 
