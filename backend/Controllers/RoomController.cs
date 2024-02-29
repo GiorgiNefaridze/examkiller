@@ -15,24 +15,13 @@ public class RoomController : ControllerBase
 
     [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetRoomsByName([FromQuery] string name)
-    {
-        var rooms = await _context.Rooms
-        .Where(r => r.Name.ToLower().Contains(name.ToLower()))
-        .ToListAsync();
-
-        return Ok(new { Response = rooms });
-    }   
-
-
-    [HttpGet("user/{userId}")]
-    [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Get([FromRoute] int userId)
+    public async Task<IActionResult> Get([FromQuery] int userId, [FromQuery] string name = "")
     {
         List<EnrollUser> enrollUsers = _context.EnrollUsers.ToList();
 
        var simpleRooms = _context.Rooms
+        .Where(r => r.Name.Trim().ToLower().Contains(name.Trim().ToLower()))
         .Select(r => new
         {
             RoomId = r.RoomId,
@@ -42,6 +31,23 @@ public class RoomController : ControllerBase
             OwnerId = r.User.UserId
         })
         .ToList();
+
+        var allRooms = _context.Rooms
+        .Where(r => r.Name.Trim().ToLower().Contains(name.Trim().ToLower()))
+        .Select(r => new
+        {
+            RoomId = r.RoomId,
+            Name = r.Name,
+            Type = r.Type,
+            Description = r.Description,
+            OwnerId = r.User.UserId
+        })
+        .ToList();
+
+        if(simpleRooms == null)
+        {
+            return Ok(new { Response = allRooms });
+        }
 
         var rooms = simpleRooms
         .Select(r => new {
