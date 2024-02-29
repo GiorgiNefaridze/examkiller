@@ -13,6 +13,18 @@ public class RoomController : ControllerBase
         _context = context;
     }
 
+    [HttpGet]
+    [ProducesResponseType(StatusCodes.Status200OK)]
+    public async Task<IActionResult> GetRoomsByName([FromQuery] string name)
+    {
+        var rooms = await _context.Rooms
+        .Where(r => r.Name.ToLower().Contains(name.ToLower()))
+        .ToListAsync();
+
+        return Ok(new { Response = rooms });
+    }   
+
+
     [HttpGet("user/{userId}")]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
