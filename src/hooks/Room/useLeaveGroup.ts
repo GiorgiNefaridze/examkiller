@@ -2,7 +2,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 import networkClient from "../../../network";
 import { RoomQueryKeys } from "./queries";
-import { Routes } from "../../../Routes";
 
 type LeaveGroupType = {
   roomId: number;

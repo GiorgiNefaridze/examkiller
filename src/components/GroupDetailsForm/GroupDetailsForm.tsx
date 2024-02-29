@@ -1,8 +1,9 @@
 import { memo, useEffect } from "react";
-import { TextInput, Textarea } from "flowbite-react";
+import { Button, TextInput, Textarea } from "flowbite-react";
 import { useForm } from "react-hook-form";
 
 import { useCreateArticle } from "../../hooks/Article/useCreateArticle";
+import { useLeaveFromGroup } from "../../hooks/Room/useLeaveGroup";
 
 type FormFields = "title" | "content" | "ownerId" | "roomId";
 type FormType = {
@@ -11,12 +12,18 @@ type FormType = {
   ownerId: number;
   roomId: number;
 };
+
 type GroupDetailsFormType = {
   ownerId: number | undefined;
+  userId: number | undefined;
   roomId: number;
 };
 
-const GroupDetailsForm = ({ ownerId, roomId }: GroupDetailsFormType) => {
+const GroupDetailsForm = ({
+  ownerId,
+  roomId,
+  userId,
+}: GroupDetailsFormType) => {
   const { register, handleSubmit, setValue, reset } = useForm<FormType>({
     defaultValues: {
       ownerId,
@@ -31,6 +38,7 @@ const GroupDetailsForm = ({ ownerId, roomId }: GroupDetailsFormType) => {
   }, [roomId]);
 
   const { mutateAsync: CreateArticle } = useCreateArticle();
+  const { mutateAsync: LeaveRoom } = useLeaveFromGroup();
 
   const submitForm = handleSubmit(async (data) => {
     await CreateArticle(data);
@@ -65,12 +73,18 @@ const GroupDetailsForm = ({ ownerId, roomId }: GroupDetailsFormType) => {
             />
           </div>
           <div className="w-full flex items-start justify-between md:w-full px-3">
-            <div></div>
-            <input
-              type="submit"
-              className="bg-white cursor-pointer text-gray-700 font-medium py-1 px-4 border border-gray-400 rounded-lg tracking-wide hover:bg-gray-100"
-              value="Post"
-            />
+            <Button
+              color="failure"
+              className="!p-0"
+              onClick={async () => {
+                await LeaveRoom({ roomId, userId });
+              }}
+            >
+              Leave group
+            </Button>
+            <Button color="light" className="!p-0" type="submit">
+              Post
+            </Button>
           </div>
         </div>
       </form>
