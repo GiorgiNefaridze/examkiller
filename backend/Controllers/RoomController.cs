@@ -13,14 +13,15 @@ public class RoomController : ControllerBase
         _context = context;
     }
 
-    [HttpGet("user/{userId}")]
+    [HttpGet]
     [ProducesResponseType(StatusCodes.Status200OK)]
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
-    public async Task<IActionResult> Get([FromRoute] int userId)
+    public async Task<IActionResult> Get([FromQuery] int userId, [FromQuery] string name = "")
     {
         List<EnrollUser> enrollUsers = _context.EnrollUsers.ToList();
 
        var simpleRooms = _context.Rooms
+        .Where(r => r.Name.Trim().ToLower().Contains(name.Trim().ToLower()))
         .Select(r => new
         {
             RoomId = r.RoomId,
@@ -30,6 +31,23 @@ public class RoomController : ControllerBase
             OwnerId = r.User.UserId
         })
         .ToList();
+
+        var allRooms = _context.Rooms
+        .Where(r => r.Name.Trim().ToLower().Contains(name.Trim().ToLower()))
+        .Select(r => new
+        {
+            RoomId = r.RoomId,
+            Name = r.Name,
+            Type = r.Type,
+            Description = r.Description,
+            OwnerId = r.User.UserId
+        })
+        .ToList();
+
+        if(simpleRooms == null)
+        {
+            return Ok(new { Response = allRooms });
+        }
 
         var rooms = simpleRooms
         .Select(r => new {

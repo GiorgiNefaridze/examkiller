@@ -1,12 +1,10 @@
 import { Avatar } from "flowbite-react";
 
-type LikesType = {
-  nickname: string;
-  email: string;
-}[];
-
 type LikesAvatarType = {
-  likes: LikesType;
+  likes: {
+    nickname: string;
+    email: string;
+  }[];
 };
 
 const visibleLikes = 3;

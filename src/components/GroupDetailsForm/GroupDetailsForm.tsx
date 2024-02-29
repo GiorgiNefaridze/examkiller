@@ -1,28 +1,31 @@
-import { memo, useEffect } from "react";
+import { Dispatch, SetStateAction, memo, useEffect } from "react";
 import { Button, TextInput, Textarea } from "flowbite-react";
 import { useForm } from "react-hook-form";
 
+import { RoomModelType } from "../../hooks/Room/useGetRooms";
 import { useCreateArticle } from "../../hooks/Article/useCreateArticle";
 import { useLeaveFromGroup } from "../../hooks/Room/useLeaveGroup";
 
-type FormFields = "title" | "content" | "ownerId" | "roomId";
 type FormType = {
   title: string;
   content: string;
   ownerId: number;
   roomId: number;
 };
+type FormFields = keyof FormType;
 
 type GroupDetailsFormType = {
   ownerId: number | undefined;
   userId: number | undefined;
   roomId: number;
+  setRoomData: Dispatch<SetStateAction<RoomModelType>>;
 };
 
 const GroupDetailsForm = ({
   ownerId,
   roomId,
   userId,
+  setRoomData,
 }: GroupDetailsFormType) => {
   const { register, handleSubmit, setValue, reset } = useForm<FormType>({
     defaultValues: {
@@ -78,6 +81,7 @@ const GroupDetailsForm = ({
               className="!p-0"
               onClick={async () => {
                 await LeaveRoom({ roomId, userId });
+                setRoomData({});
               }}
             >
               Leave group

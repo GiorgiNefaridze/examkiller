@@ -1,4 +1,4 @@
-import { memo } from "react";
+import { Dispatch, SetStateAction, memo } from "react";
 import { Timeline } from "flowbite-react";
 
 import GroupDetailsForm from "../GroupDetailsForm/GroupDetailsForm";
@@ -11,9 +11,11 @@ import { useGetArticles } from "../../hooks/Article/useGetArticles";
 import { RoomModelType } from "../../hooks/Room/useGetRooms";
 import { getCookie } from "../../helpers/cookie";
 
-type GroupDetailsType = RoomModelType;
+type GroupDetailsType = RoomModelType & {
+  setRoomData: Dispatch<SetStateAction<RoomModelType>>;
+};
 
-const GroupDetails = ({ roomId }: GroupDetailsType) => {
+const GroupDetails = ({ roomId, setRoomData }: GroupDetailsType) => {
   const user = getCookie("user");
   const userId = user?.userId;
 
@@ -30,7 +32,9 @@ const GroupDetails = ({ roomId }: GroupDetailsType) => {
         ) : (
           <>
             {articles?.length ? (
-              articles?.map((article) => <GroupTimeline {...article} />)
+              articles?.map((article) => (
+                <GroupTimeline key={article?.articleId} {...article} />
+              ))
             ) : (
               <NoContent />
             )}
@@ -43,6 +47,7 @@ const GroupDetails = ({ roomId }: GroupDetailsType) => {
           ownerId={user?.userId}
           roomId={roomId}
           userId={userId}
+          setRoomData={setRoomData}
         />
       )}
     </div>

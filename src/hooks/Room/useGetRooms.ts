@@ -23,20 +23,21 @@ type GetRoomsResponseType = {
 
 type GetRoomsType = {
   userId: number;
+  query: string;
 };
 
-const getRooms = async ({ userId }: GetRoomsType) => {
+const getRooms = async ({ userId, query }: GetRoomsType) => {
   const { data } = await networkClient.get<GetRoomsResponseType>(
-    `/Room/user/${userId}`
+    `/Room?userId=${userId}&name=${query}`
   );
 
   return data?.response;
 };
 
-const useGetRooms = ({ userId }: GetRoomsType) => {
+const useGetRooms = ({ userId, query }: GetRoomsType) => {
   return useQuery({
-    queryKey: RoomQueryKeys.all,
-    queryFn: () => getRooms({ userId }),
+    queryKey: [...RoomQueryKeys.all, query],
+    queryFn: () => getRooms({ userId, query }),
     enabled: Boolean(userId),
   });
 };
