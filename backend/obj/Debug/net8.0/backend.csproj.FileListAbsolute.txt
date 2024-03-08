@@ -106,3 +106,4 @@ D:\examkiller\backend\obj\Debug\net8.0\backend.genruntimeconfig.cache
 D:\examkiller\backend\obj\Debug\net8.0\ref\backend.dll
 D:\examkiller\backend\bin\Debug\net8.0\Mapster.dll
 D:\examkiller\backend\bin\Debug\net8.0\Mapster.Core.dll
+D:\examkiller\backend\bin\Debug\net8.0\BCrypt.Net.dll

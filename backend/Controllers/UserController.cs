@@ -7,10 +7,12 @@ using Microsoft.EntityFrameworkCore;
 public class UserController : ControllerBase
 {
     private readonly ExamKillerDbContext _context;
+    private readonly IPasswordHashingService _passwordHashService;
 
-    public UserController(ExamKillerDbContext context)
+    public UserController(ExamKillerDbContext context,IPasswordHashingService passwordHashService)
     {
         _context = context;
+        _passwordHashService = passwordHashService;
     }
 
     [HttpGet("login")]
@@ -23,16 +25,16 @@ public class UserController : ControllerBase
             return BadRequest(new { ErrorMessage = "Enter valid data" });
         }
 
-        IQueryable<User>? isExists = _context.Users.Where(u => u.Email == Email);
+        bool isExists = await IsUserExists(Email); 
 
-        if(isExists == null)
+        if(!isExists)
         {
             return BadRequest(new { ErrorMessage = "User with this credentials does not exists" });
         }
 
-        User? user = _context.Users.FirstOrDefault(u => u.Email == Email && u.Password == Password);
+        User? user = await _context.Users.FirstOrDefaultAsync(u => u.Email == Email);   
 
-        if (user == null)
+        if (user == null || ! _passwordHashService.VerifyPassword(Password, user.Password))
         {
             return BadRequest(new { ErrorMessage = "Incorrect credentials" });
         }
@@ -46,16 +48,22 @@ public class UserController : ControllerBase
     [ProducesResponseType(StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Create([FromBody] User user)
     {
-        bool isExists = await _context.Users.AnyAsync(u => u.Email == user.Email);
+        bool isExists = await IsUserExists(user.Email);
 
         if(isExists) 
         {
             return BadRequest(new { ErrorMessage = "User with this email already exists" });
         }
 
-        _context.Users.Add(user);
+        user.Password = _passwordHashService.HashPassword(user.Password);
+
+        await _context.Users.AddAsync(user);
         await _context.SaveChangesAsync();
 
         return Ok(new { Response = "User created successfully" });
+    }
+
+    private async Task<bool> IsUserExists(string email){
+        return await _context.Users.AnyAsync(u => u.Email == email);
     }
 }

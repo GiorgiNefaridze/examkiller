@@ -4,13 +4,16 @@ var builder = WebApplication.CreateBuilder(args);
 
 string? connectionString = builder.Configuration.GetConnectionString("DdConnection");
 
-builder.Services.AddDbContext<ExamKillerDbContext>(opt => opt.UseNpgsql(connectionString));
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
 builder.Services.AddControllers();
+builder.Services.AddDbContext<ExamKillerDbContext>(opt => opt.UseNpgsql(connectionString));
 builder.Services.AddCors(c => c.AddDefaultPolicy(
     b => b.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader()
 ));
+
+builder.Services.AddScoped<IPasswordHashingService,PasswordHashingService>();
 
 var app = builder.Build();
 
